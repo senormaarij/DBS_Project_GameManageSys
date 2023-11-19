@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>408</width>
+    <height>485</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>410</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Close</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>361</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Public Leaderboard</string>
+    </property>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>321</width>
+       <height>181</height>
+      </rect>
+     </property>
+     <row>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </row>
+     <column>
+      <property name="text">
+       <string>Player ID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Faction</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Score </string>
+      </property>
+     </column>
+     <item row="0" column="0">
+      <property name="text">
+       <string>Boldibox</string>
+      </property>
+     </item>
+     <item row="0" column="1">
+      <property name="text">
+       <string>The Hunters</string>
+      </property>
+     </item>
+     <item row="0" column="2">
+      <property name="text">
+       <string>51,600</string>
+      </property>
+     </item>
+     <item row="1" column="0">
+      <property name="text">
+       <string>JohnWick12</string>
+      </property>
+     </item>
+     <item row="1" column="1">
+      <property name="text">
+       <string>99THIEVES</string>
+      </property>
+     </item>
+     <item row="1" column="2">
+      <property name="text">
+       <string>51,000</string>
+      </property>
+     </item>
+     <item row="2" column="0">
+      <property name="text">
+       <string>SirArthur001</string>
+      </property>
+     </item>
+     <item row="2" column="1">
+      <property name="text">
+       <string>TheKnights</string>
+      </property>
+     </item>
+     <item row="2" column="2">
+      <property name="text">
+       <string>50,160</string>
+      </property>
+     </item>
+     <item row="3" column="0">
+      <property name="text">
+       <string>NoobMaster69</string>
+      </property>
+     </item>
+     <item row="3" column="1">
+      <property name="text">
+       <string>dANKBOy420</string>
+      </property>
+     </item>
+     <item row="3" column="2">
+      <property name="text">
+       <string>49,200</string>
+      </property>
+     </item>
+     <item row="4" column="0">
+      <property name="text">
+       <string>JBax678</string>
+      </property>
+     </item>
+     <item row="4" column="1">
+      <property name="text">
+       <string>The Hunters</string>
+      </property>
+     </item>
+     <item row="4" column="2">
+      <property name="text">
+       <string>45,090</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>280</y>
+      <width>361</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Your Rank</string>
+    </property>
+    <widget class="QTableWidget" name="tableWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>331</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <row>
+      <property name="text">
+       <string>50</string>
+      </property>
+     </row>
+     <column>
+      <property name="text">
+       <string>Player ID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Faction</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Score</string>
+      </property>
+     </column>
+     <item row="0" column="0">
+      <property name="text">
+       <string>Boldibox</string>
+      </property>
+     </item>
+     <item row="0" column="1">
+      <property name="text">
+       <string>99Thieves</string>
+      </property>
+     </item>
+     <item row="0" column="2">
+      <property name="text">
+       <string>29,000</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>408</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
