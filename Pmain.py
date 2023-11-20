@@ -26,20 +26,62 @@ class Login(QtWidgets.QMainWindow):
 
         # Load the .ui file
         uic.loadUi('Login.ui', self)
-
-        # Load Orders data
-        # self.populate_table()
-
+        
         # Connect Submit Button to Event Handling Code
         self.login.clicked.connect(self.open_player_int)
+        self.Register.clicked.connect(self.register_player)
+        self.close.clicked.connect(self.closed_clicked)
 
+    def register_player(self):
+        em = self.REmail.text()
+        pswd = self.RPassword.text()
+        loginid = self.RLoginID.text()
+        print(em," ",pswd," ",loginid)
+        if not self.check_available_email_login:
+            connection = pyodbc.connect(connection_string)
+            cursor = connection.cursor()
+            query = "INSERT INTO LoginCredentials ([loginid], [email], [password])VALUES (?, ?, ?)"
+            result = cursor.execute(query, loginid, em,pswd)
+
+        connection.close()            
+        pass
     
+    def closed_clicked(self):
+        sys.exit()
 
     def open_player_int(self):
-        self.Inventory_win = Inventory()
-        self.Inventory_win.show()
+        em = self.Email.text()
+        pswd = self.Password.text()
+        if self.check_emailpass(em,pswd) and "@" in em:
+            self.Inventory_win = Inventory()
+            self.Inventory_win.show()
+            self.hide()
+        else:
+            QtWidgets.QMessageBox.critical(self, "Error", "Email/Password might be incorrect")
+
+    def check_available_email_login(self,email,Login):
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        query = "SELECT loginid FROM Login_Credentials WHERE email = ? or loginid = ?"
+        result = cursor.execute(query, email, Login).fetchone()
+
+        connection.close()  # Close the connection explicitly
+    
+        return result is not None
 
 
+    def check_emailpass(self,email,password):
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        query = "SELECT loginid FROM Login_Credentials WHERE email = ? AND password = ?"
+        result = cursor.execute(query, email, password).fetchone()
+
+        connection.close()  # Close the connection explicitly
+    
+        return result is not None
+        
 class Inventory(QtWidgets.QMainWindow):
     def __init__(self):
         super(Inventory, self).__init__()
