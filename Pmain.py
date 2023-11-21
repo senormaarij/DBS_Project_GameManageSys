@@ -55,12 +55,15 @@ class Login(QtWidgets.QMainWindow):
     def open_player_int(self):
         em = self.Email.text()
         pswd = self.Password.text()
-        if self.check_emailpass(em,pswd) and "@" in em:
-            self.Inventory_win = Inventory()
+        login_id = self.check_emailpass(em,pswd) 
+        if login_id is not None and "@" in em:
+            self.Inventory_win = Inventory(login_id)
             self.Inventory_win.show()
             self.hide()
         else:
             QtWidgets.QMessageBox.critical(self, "Error", "Email/Password might be incorrect")
+
+        
 
     def check_available_email_login(self,email,Login):
         connection = pyodbc.connect(connection_string)
@@ -82,15 +85,21 @@ class Login(QtWidgets.QMainWindow):
         result = cursor.execute(query, email, password).fetchone()
 
         connection.close()  # Close the connection explicitly
-    
-        return result is not None
+
+        if result:
+            login_id = result[0]
+            return login_id
+        else:
+            return None
         
 class Inventory(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,loginid):
         super(Inventory, self).__init__()
 
         # Load the .ui file
         uic.loadUi('Inventory.ui', self)
+
+        self.loginid = loginid
 
     
 
