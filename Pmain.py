@@ -105,18 +105,22 @@ class Login(QtWidgets.QMainWindow):
             return None
         
 class Inventory(QtWidgets.QMainWindow):
-    def __init__(self,loginid):
+    def __init__(self,playerID):
         super(Inventory, self).__init__()
 
         # Load the .ui file
         uic.loadUi('Inventory.ui', self)
 
-        self.loginid = loginid
-
+        #call login function with a unique playerID
+        self.load_inventry(playerID)
+        
+    def load_inventory(self,playerID):
+        self.setWindowTitle('Inventory of ',playerID)
+        
     
-
-
-
+    def update_inventory():
+        
+        
 
 def main():
     app = QApplication(sys.argv)
