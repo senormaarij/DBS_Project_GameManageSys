@@ -42,6 +42,9 @@ class Login(QtWidgets.QMainWindow):
             cursor = connection.cursor()
             query = "INSERT INTO LoginCredentials ([loginid], [email], [password])VALUES (?, ?, ?)"
             result = cursor.execute(query, loginid, em,pswd)
+        else:
+             QtWidgets.QMessageBox.critical(self, "Error", "Email/LoginID already exists")
+
 
         connection.close()            
         pass
