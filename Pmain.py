@@ -3,12 +3,14 @@ from PyQt6.QtCore import QDate
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView
 import sys
 import pyodbc
+import re
 
-server = ''
-database = ''  # Name of your Northwind database
+
+server = 'DESKTOP-1GNB7TH\SPARTA'
+database = 'GAME_DEV'  # Name of your Northwind database
 use_windows_authentication = False  # Set to True to use Windows Authentication
-username = ''  # Specify a username if not using Windows Authentication
-password = ''  # Specify a password if not using Windows Authentication
+username = 'sa'  # Specify a username if not using Windows Authentication
+password = 'maarij0314'  # Specify a password if not using Windows Authentication
 
 
 # Create the connection string based on the authentication method chosen
@@ -33,21 +35,31 @@ class Login(QtWidgets.QMainWindow):
         self.close.clicked.connect(self.closed_clicked)
 
     def register_player(self):
+        def validate_email(email):
+            if re.match(r"[^@]+@[^@]+.[^@]+", email):
+                return True
+            return False
+            
         em = self.REmail.text()
         pswd = self.RPassword.text()
         loginid = self.RLoginID.text()
         print(em," ",pswd," ",loginid)
-        if not self.check_available_email_login:
-            connection = pyodbc.connect(connection_string)
-            cursor = connection.cursor()
-            query = "INSERT INTO LoginCredentials ([loginid], [email], [password])VALUES (?, ?, ?)"
-            result = cursor.execute(query, loginid, em,pswd)
+        if self.check_available_email_login:
+
+            if validate_email(em):
+                connection = pyodbc.connect(connection_string)
+                cursor = connection.cursor()
+                query = "INSERT INTO LoginCredentials ([playerID], [email], [password])VALUES (?, ?, ?)"
+                result = cursor.execute(query, loginid, em,pswd)
+                connection.commit()
+                QtWidgets.QMessageBox.critical(self, "Success", "Registered successfully")
+                connection.close()        
+            else:
+                QtWidgets.QMessageBox.critical(self, "Error", "Please enter a correct Email")
         else:
              QtWidgets.QMessageBox.critical(self, "Error", "Email/LoginID already exists")
-
-
-        connection.close()            
         pass
+
     
     def closed_clicked(self):
         sys.exit()
@@ -69,19 +81,19 @@ class Login(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
-        query = "SELECT loginid FROM Login_Credentials WHERE email = ? or loginid = ?"
-        result = cursor.execute(query, email, Login).fetchone()
+        query = "SELECT loginid FROM LoginCredentials WHERE email = ? or playerid = ?"
+        result = cursor.execute(query, email, Login)
 
         connection.close()  # Close the connection explicitly
     
-        return result is not None
+        return result is None
 
 
     def check_emailpass(self,email,password):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
-        query = "SELECT loginid FROM Login_Credentials WHERE email = ? AND password = ?"
+        query = "SELECT playerid FROM LoginCredentials WHERE email = ? AND password = ?"
         result = cursor.execute(query, email, password).fetchone()
 
         connection.close()  # Close the connection explicitly
