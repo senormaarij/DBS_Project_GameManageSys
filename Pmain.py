@@ -6,9 +6,10 @@ import pyodbc
 import re
 
 
-server = 'DESKTOP-1GNB7TH\SPARTA'
+
+server = 'DESKTOP-DF4VK8E\DATABASE_WORK'
 database = 'GAME_DEV'  # Name of your Northwind database
-use_windows_authentication = False  # Set to True to use Windows Authentication
+use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
 password = 'maarij0314'  # Specify a password if not using Windows Authentication
 
@@ -36,7 +37,7 @@ class Login(QtWidgets.QMainWindow):
 
     def register_player(self):
         def validate_email(email):
-            if re.match(r"[^@]+@[^@]+.[^@]+", email):
+            if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
                 return True
             return False
             
