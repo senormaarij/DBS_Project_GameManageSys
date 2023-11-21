@@ -117,9 +117,43 @@ class Inventory(QtWidgets.QMainWindow):
         
     def load_inventory(self,playerID):
         self.setWindowTitle('Inventory of ',playerID)
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+        
+        playername = "Select playerusername from player where playerid = ?"
+        playernameresult = cursor.execute(playername, playerID)
+        self.lineEdit_2.setText(playernameresult)
+        
+        playerHP = "Select playerhp from player where playerid = ?"
+        playerHPresult = cursor.execute(playerHP,playerID)
+        self.lineEdit_3.setText(playerHPresult)
+        
+        playerMana = "Select playermana from player where playerid = ?"
+        playerManaresult = cursor.execute(playerMana , playerID)
+        self.lineEdit_4.setText(playerManaresult)
+        
+        playerClass = "Select classtype from classes  where classid in (select classid from player where playerid = ?)"
+        playerClassresult = cursor.execute(playerClass , playerID)
+        self.lineEdit_5.setText(playerClassresult)
+        
+        playerGold = "Select gold from player where playerid = ?"
+        playerGoldresult = cursor.execute(playerGold,playerID)
+        self.lineEdit_6.setText(playerGoldresult)
+        
+        playerLevel = "select explevel from player where playerid = ?"
+        playerLevelresult = cursor.execute(playerLevel,playerID)
+        self.lineEdit_7.setText(playerLevelresult)
+        
+    
+        
+        
+        
         
     
     def update_inventory():
+        pass
+    
+    
         
         
 
