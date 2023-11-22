@@ -121,29 +121,17 @@ class Inventory(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         
-        playername = "Select PlayerUserName from player where loginid = ?"
-        playernameresult = cursor.execute(playername, playerID).fetchone()
-        self.lineEdit_2.setText(playernameresult[0])
-        
-        playerHP = "Select Expfor_next_level from player where loginid = ?"
-        playerHPresult = cursor.execute(playerHP,playerID).fetchone()
-        self.lineEdit_3.setText(str(playerHPresult[0]))
-        
-        playerMana = "Select TotalManaCap from player where loginid = ?"
-        playerManaresult = cursor.execute(playerMana , playerID).fetchone()
-        self.lineEdit_4.setText(str(playerManaresult[0]))
+        query = "Select PlayerUserName,Expfor_next_level, TotalManaCap, gold, explevel  from player where loginid = ?"
+        result = cursor.execute(query, playerID).fetchone()
+        self.lineEdit_2.setText(result[0])
+        self.lineEdit_3.setText(str(result[1]))
+        self.lineEdit_4.setText(str(result[2]))
+        self.lineEdit_6.setText(str(result[3]))
+        self.lineEdit_7.setText(str(result[4]))
         
         playerClass = "Select classtype from classes  where classid in (select classid from player where loginid = ?)"
         playerClassresult = cursor.execute(playerClass , playerID).fetchone()
         self.lineEdit_5.setText(playerClassresult[0])
-        
-        playerGold = "Select gold from player where loginid = ?"
-        playerGoldresult = cursor.execute(playerGold,playerID).fetchone()
-        self.lineEdit_6.setText(str(playerGoldresult[0]))
-        
-        playerLevel = "select explevel from player where loginid = ?"
-        playerLevelresult = cursor.execute(playerLevel,playerID).fetchone()
-        self.lineEdit_7.setText(str(playerLevelresult[0]))
         
         
     def search(self):
