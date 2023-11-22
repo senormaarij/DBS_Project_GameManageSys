@@ -7,8 +7,8 @@ import re
 
 
 
-server = 'DESKTOP-DF4VK8E\DATABASE_WORK'
-database = 'GAME_DEV'  # Name of your Northwind database
+server = 'DESKTOP-1GNB7TH\SPARTA'
+database = 'GAME'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
 password = 'maarij0314'  # Specify a password if not using Windows Authentication
@@ -50,7 +50,7 @@ class Login(QtWidgets.QMainWindow):
             if validate_email(em):
                 connection = pyodbc.connect(connection_string)
                 cursor = connection.cursor()
-                query = "INSERT INTO LoginCredentials ([playerID], [email], [password])VALUES (?, ?, ?)"
+                query = "INSERT INTO Login_Credentials ([loginid], [email], [password])VALUES (?, ?, ?)"
                 result = cursor.execute(query, loginid, em,pswd)
                 connection.commit()
                 QtWidgets.QMessageBox.critical(self, "Success", "Registered successfully")
@@ -82,7 +82,7 @@ class Login(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
-        query = "SELECT loginid FROM LoginCredentials WHERE email = ? or playerid = ?"
+        query = "SELECT loginid FROM Login_Credentials WHERE email = ? or loginid = ?"
         result = cursor.execute(query, email, Login)
 
         connection.close()  # Close the connection explicitly
@@ -94,13 +94,14 @@ class Login(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
-        query = "SELECT playerid FROM LoginCredentials WHERE email = ? AND password = ?"
+        query = "SELECT loginid FROM Login_Credentials WHERE email = ? AND password = ?"
         result = cursor.execute(query, email, password).fetchone()
 
         connection.close()  # Close the connection explicitly
 
         if result:
             login_id = result[0]
+            print(login_id)
             return login_id
         else:
             return None
@@ -111,38 +112,38 @@ class Inventory(QtWidgets.QMainWindow):
 
         # Load the .ui file
         uic.loadUi('Inventory.ui', self)
-
+        print(playerID)
         #call login function with a unique playerID
-        self.load_inventry(playerID)
+        self.load_inventory(playerID)
         
     def load_inventory(self,playerID):
-        self.setWindowTitle('Inventory of ',playerID)
+        #self.setWindowTitle('Inventory of ',playerID)
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         
-        playername = "Select playerusername from player where playerid = ?"
-        playernameresult = cursor.execute(playername, playerID)
-        self.lineEdit_2.setText(playernameresult)
+        playername = "Select PlayerUserName from player where loginid = ?"
+        playernameresult = cursor.execute(playername, playerID).fetchone()
+        self.lineEdit_2.setText(playernameresult[0])
         
-        playerHP = "Select playerhp from player where playerid = ?"
-        playerHPresult = cursor.execute(playerHP,playerID)
-        self.lineEdit_3.setText(playerHPresult)
+        playerHP = "Select Expfor_next_level from player where loginid = ?"
+        playerHPresult = cursor.execute(playerHP,playerID).fetchone()
+        self.lineEdit_3.setText(str(playerHPresult[0]))
         
-        playerMana = "Select playermana from player where playerid = ?"
-        playerManaresult = cursor.execute(playerMana , playerID)
-        self.lineEdit_4.setText(playerManaresult)
+        playerMana = "Select TotalManaCap from player where loginid = ?"
+        playerManaresult = cursor.execute(playerMana , playerID).fetchone()
+        self.lineEdit_4.setText(str(playerManaresult[0]))
         
-        playerClass = "Select classtype from classes  where classid in (select classid from player where playerid = ?)"
-        playerClassresult = cursor.execute(playerClass , playerID)
-        self.lineEdit_5.setText(playerClassresult)
+        playerClass = "Select classtype from classes  where classid in (select classid from player where loginid = ?)"
+        playerClassresult = cursor.execute(playerClass , playerID).fetchone()
+        self.lineEdit_5.setText(playerClassresult[0])
         
-        playerGold = "Select gold from player where playerid = ?"
-        playerGoldresult = cursor.execute(playerGold,playerID)
-        self.lineEdit_6.setText(playerGoldresult)
+        playerGold = "Select gold from player where loginid = ?"
+        playerGoldresult = cursor.execute(playerGold,playerID).fetchone()
+        self.lineEdit_6.setText(str(playerGoldresult[0]))
         
-        playerLevel = "select explevel from player where playerid = ?"
-        playerLevelresult = cursor.execute(playerLevel,playerID)
-        self.lineEdit_7.setText(playerLevelresult)
+        playerLevel = "select explevel from player where loginid = ?"
+        playerLevelresult = cursor.execute(playerLevel,playerID).fetchone()
+        self.lineEdit_7.setText(str(playerLevelresult[0]))
         
         
     def search(self):
