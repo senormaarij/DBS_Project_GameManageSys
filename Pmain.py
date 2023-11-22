@@ -144,12 +144,31 @@ class Inventory(QtWidgets.QMainWindow):
         playerLevelresult = cursor.execute(playerLevel,playerID)
         self.lineEdit_7.setText(playerLevelresult)
         
-    
         
+    def search(self):
+        search_text = self.lineEdit.search.text()
+        rarity=""
+        #rarity defined below is done by the ui we made if the database has different rarity change accordingly.
+        if self.checkBox_2.isChecked():
+            rarity = "Common"
+        elif self.checkBox_3.isChecked():
+            rarity = "Rare"
+        elif self.checkBox_4.isChecked():
+            rarity = "Legendary"
         
+        type = ""
+        if self.checkBox_5.isChecked():
+            type = "Consumable"
+        elif self.checkBox_6.isChecked():
+            type = "Armour"
+        elif self.checkBox_7.isChecked():
+            type = "Weapon"
         
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+        #complete this query as per the SQL i do not know how we are implemrnting the SQL so i can not do this.
+        query = "Select "
         
-    
     def update_inventory():
         pass
     
