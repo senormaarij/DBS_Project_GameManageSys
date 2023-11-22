@@ -116,6 +116,7 @@ class Inventory(QtWidgets.QMainWindow):
         #call login function with a unique playerID
         self.load_inventory(playerID)
         
+        
     def load_inventory(self,playerID):
         self.setWindowTitle('Inventory of '+playerID)
         connection = pyodbc.connect(connection_string)
