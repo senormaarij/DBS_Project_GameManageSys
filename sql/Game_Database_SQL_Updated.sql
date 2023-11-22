@@ -12,18 +12,18 @@ CREATE TABLE Classes (
     SpecialAbilities VARCHAR(50)
 );
 
--- Create WeponTypes Table
-CREATE TABLE WeponTypes (
-    WeponTypeID VARCHAR(50) PRIMARY KEY,
+-- Create WeaponTypes Table
+CREATE TABLE WeaponTypes (
+    WeaponTypeID VARCHAR(50) PRIMARY KEY,
     Handle VARCHAR(50),
     ClassCompatabilityID INT
 );
 
--- Create WeponsRarity Table
-CREATE TABLE WeponsRarity (
-    WeponRarityID VARCHAR(50) PRIMARY KEY,
+-- Create WeaponsRarity Table
+CREATE TABLE WeaponsRarity (
+    WeaponRarityID VARCHAR(50) PRIMARY KEY,
     Rarity VARCHAR(50),
-    WepongDamageRange INT,
+    WeapongDamageRange INT,
     CriticalHitChance INT,
     CriticalDamage INT
 );
@@ -38,8 +38,8 @@ CREATE TABLE ArmorRarity (
     Stamina INT
 );
 
--- Create WeponAbilities Table
-CREATE TABLE WeponAbilities (
+-- Create WeaponAbilities Table
+CREATE TABLE WeaponAbilities (
     WeoponAbilityID VARCHAR(50) PRIMARY KEY,
     AbilityDesc VARCHAR(50)
 );
@@ -158,35 +158,35 @@ CREATE TABLE InventoryFoods (
     FOREIGN KEY (FoodID) REFERENCES Food(FoodID)
 );
 
--- Create Wepons Table
-CREATE TABLE Wepons (
-    WeponID VARCHAR(50) PRIMARY KEY,
-    WeponName VARCHAR(50),
-    WeponTypeID VARCHAR(50),
+-- Create Weapons Table
+CREATE TABLE Weapons (
+    WeaponID VARCHAR(50) PRIMARY KEY,
+    WeaponName VARCHAR(50),
+    WeaponTypeID VARCHAR(50),
     Description VARCHAR(50),
-    WeponRarityID VARCHAR(50),
-    WeponAbilityID VARCHAR(50),
+    WeaponRarityID VARCHAR(50),
+    WeaponAbilityID VARCHAR(50),
     LocationIDForDrop VARCHAR(50),
     QuestIDForDrop VARCHAR(50),
-    FOREIGN KEY (WeponTypeID) REFERENCES WeponTypes(WeponTypeID),
-    FOREIGN KEY (WeponRarityID) REFERENCES WeponsRarity(WeponRarityID),
-    FOREIGN KEY (WeponAbilityID) REFERENCES WeponAbilities(WeoponAbilityID),
+    FOREIGN KEY (WeaponTypeID) REFERENCES WeaponTypes(WeaponTypeID),
+    FOREIGN KEY (WeaponRarityID) REFERENCES WeaponsRarity(WeaponRarityID),
+    FOREIGN KEY (WeaponAbilityID) REFERENCES WeaponAbilities(WeoponAbilityID),
     FOREIGN KEY (LocationIDForDrop) REFERENCES Locations(LocationID),
     FOREIGN KEY (QuestIDForDrop) REFERENCES Quests(QuestsID)
 );
 
--- Create InventoryWepons Table
-CREATE TABLE InventoryWepons (
-    InvenotryWeponsID VARCHAR(50) PRIMARY KEY,
-    WeponID VARCHAR(50),
-    FOREIGN KEY (WeponID) REFERENCES Wepons(WeponID)
+-- Create InventoryWeapons Table
+CREATE TABLE InventoryWeapons (
+    InvenotryWeaponsID VARCHAR(50) PRIMARY KEY,
+    WeaponID VARCHAR(50),
+    FOREIGN KEY (WeaponID) REFERENCES Weapons(WeaponID)
 );
 
--- Create TradeWepons Table
-CREATE TABLE TradeWepons (
-    TradeWeponsID VARCHAR(50) PRIMARY KEY,
-    WeponID VARCHAR(50),
-    FOREIGN KEY (WeponID) REFERENCES Wepons(WeponID)
+-- Create TradeWeapons Table
+CREATE TABLE TradeWeapons (
+    TradeWeaponsID VARCHAR(50) PRIMARY KEY,
+    WeaponID VARCHAR(50),
+    FOREIGN KEY (WeaponID) REFERENCES Weapons(WeaponID)
 );
 
 -- Create TradeArmors Table
@@ -203,7 +203,7 @@ CREATE TABLE Inventory (
     InventoryArmorsID VARCHAR(50),
     InvnetoryItemsID VARCHAR(50),
     InventoryFoodsID VARCHAR(50),
-    FOREIGN KEY (InventoryWepinsID) REFERENCES InventoryWepons(InvenotryWeponsID),
+    FOREIGN KEY (InventoryWepinsID) REFERENCES InventoryWeapons(InvenotryWeaponsID),
     FOREIGN KEY (InventoryArmorsID) REFERENCES InventoryArmors(InventoryArmorID),
     FOREIGN KEY (InvnetoryItemsID) REFERENCES InventoryItems(InventoryItemsID),
     FOREIGN KEY (InventoryFoodsID) REFERENCES InventoryFoods(InventoryFoodsID)
@@ -217,12 +217,12 @@ CREATE TABLE Player (
     LoginID VARCHAR(50),
     ClassID VARCHAR(50),
     EXPLevel INT,
-    EXPfor_next_level INT,
-    Gold MONEY,
-    TotalManaCap INT,
-    TotalStaminaCap INT,
-    TotalPhysicalDefenseCap INT,
-    TotalMagicDefenseCap INT,
+    Health INT,
+    Gold INT,
+    Mana INT,
+    Stamina INT,
+    PhysicalDefense INT,
+    MagicDefense INT,
     FactionID VARCHAR(50),
     PlayerFactionScore INT,
     FOREIGN KEY (InventoryID) REFERENCES Inventory(InventoryID),
@@ -235,13 +235,13 @@ CREATE TABLE Player (
 CREATE TABLE Market (
     ListingID VARCHAR(50) PRIMARY KEY,
     PlayerID VARCHAR(50),
-    WeponID VARCHAR(50),
+    WeaponID VARCHAR(50),
     ArmorID VARCHAR(50),
     FoodID VARCHAR(50),
     Quantity INT,
     GoldAmount MONEY,
     FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
-    FOREIGN KEY (WeponID) REFERENCES Wepons(WeponID),
+    FOREIGN KEY (WeaponID) REFERENCES Weapons(WeaponID),
     FOREIGN KEY (ArmorID) REFERENCES Armors(ArmorID),
     FOREIGN KEY (FoodID) REFERENCES Food(FoodID)
 );
@@ -250,10 +250,10 @@ CREATE TABLE Market (
 CREATE TABLE Trades (
     TradeID VARCHAR(50) PRIMARY KEY,
     PlayerID VARCHAR(50),
-    TradeWeponsID VARCHAR(50),
+    TradeWeaponsID VARCHAR(50),
     TradeArmorsID VARCHAR(50),
     Gold_Amount MONEY,
     FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
-    FOREIGN KEY (TradeWeponsID) REFERENCES TradeWepons(TradeWeponsID),
+    FOREIGN KEY (TradeWeaponsID) REFERENCES TradeWeapons(TradeWeaponsID),
     FOREIGN KEY (TradeArmorsID) REFERENCES TradeArmors(TradeArmorsID)
 );

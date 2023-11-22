@@ -1,4 +1,3 @@
-SET IDENTITY_INSERT Login_Credentials ON
 
 
 -- Insert dummy data into Login_Credentials Table
@@ -13,14 +12,14 @@ VALUES
     ('class1', 'Warrior', 'Strength Boost'),
     ('class2', 'Mage', 'Fireball Spell');
 
--- Insert dummy data into WeponTypes Table
-INSERT INTO WeponTypes (WeponTypeID, Handle, ClassCompatabilityID)
+-- Insert dummy data into WeaponTypes Table
+INSERT INTO WeaponTypes (WeaponTypeID, Handle, ClassCompatabilityID)
 VALUES 
     ('1', 'Sword', 1),
     ('2', 'Staff', 2);
 
--- Insert dummy data into WeponsRarity Table
-INSERT INTO WeponsRarity (WeponRarityID, Rarity, WepongDamageRange, CriticalHitChance, CriticalDamage)
+-- Insert dummy data into WeaponsRarity Table
+INSERT INTO WeaponsRarity (WeaponRarityID, Rarity, WeapongDamageRange, CriticalHitChance, CriticalDamage)
 VALUES 
     ('1', 'Common', 10, 5, 2),
     ('2', 'Rare', 15, 10, 5);
@@ -31,8 +30,8 @@ VALUES
     ('1', 'Common', 20, 10, 5, 5),
     ('2', 'Rare', 30, 20, 10, 10);
 
--- Insert dummy data into WeponAbilities Table
-INSERT INTO WeponAbilities (WeoponAbilityID, AbilityDesc)
+-- Insert dummy data into WeaponAbilities Table
+INSERT INTO WeaponAbilities (WeoponAbilityID, AbilityDesc)
 VALUES 
     ('ability1', 'Slash Attack'),
     ('ability2', 'Fireball');
@@ -121,20 +120,20 @@ VALUES
     ('inv_food1', 'food1'),
     ('inv_food2', 'food2');
 
--- Insert dummy data into Wepons Table
-INSERT INTO Wepons (WeponID, WeponName, WeponTypeID, Description, WeponRarityID, WeponAbilityID, LocationIDForDrop, QuestIDForDrop)
+-- Insert dummy data into Weapons Table
+INSERT INTO Weapons (WeaponID, WeaponName, WeaponTypeID, Description, WeaponRarityID, WeaponAbilityID, LocationIDForDrop, QuestIDForDrop)
 VALUES 
     ('weapon1', 'Sword of Valor', '1', 'A powerful sword', '1', 'ability1', 'location1', 'quest1'),
     ('weapon2', 'Staff of Wisdom', '2', 'A wise staff', '2', 'ability2', 'location2', 'quest2');
 
--- Insert dummy data into InventoryWepons Table
-INSERT INTO InventoryWepons (InvenotryWeponsID, WeponID)
+-- Insert dummy data into InventoryWeapons Table
+INSERT INTO InventoryWeapons (InvenotryWeaponsID, WeaponID)
 VALUES 
     ('inv_weapon1', 'weapon1'),
     ('inv_weapon2', 'weapon2');
 
--- Insert dummy data into TradeWepons Table
-INSERT INTO TradeWepons (TradeWeponsID, WeponID)
+-- Insert dummy data into TradeWeapons Table
+INSERT INTO TradeWeapons (TradeWeaponsID, WeaponID)
 VALUES 
     ('trade_weapon1', 'weapon1'),
     ('trade_weapon2', 'weapon2');
@@ -146,7 +145,7 @@ VALUES
     ('trade_armor2', 'armor2');
 
 -- Insert dummy data into Player Table
-INSERT INTO Player (PlayerID, PlayerUserName, InventoryID, LoginID, ClassID, EXPLevel, EXPfor_next_level, Gold, TotalManaCap, TotalStaminaCap, TotalPhysicalDefenseCap, TotalMagicDefenseCap, FactionID, PlayerFactionScore)
+INSERT INTO Player (PlayerID, PlayerUserName, InventoryID, LoginID, ClassID, EXPLevel, Health, Gold, Mana, Stamina, PhysicalDefense, MagicDefense, FactionID, PlayerFactionScore)
 VALUES 
     ('player1', 'HeroicWarrior', 'inventory1', 'user1', 'class1', 10,100, 500, 100, 200, 150,150, 'faction1', 500),
     ('player2', 'MysticMage', 'inventory2', 'user2', 'class2', 8, 120, 300, 80, 120, 80,150, 'faction2', 400);
@@ -154,13 +153,13 @@ VALUES
 
 
 -- Insert dummy data into Market Table
-INSERT INTO Market (ListingID, PlayerID, WeponID, ArmorID, FoodID, Quantity, GoldAmount)
+INSERT INTO Market (ListingID, PlayerID, WeaponID, ArmorID, FoodID, Quantity, GoldAmount)
 VALUES 
     ('market_listing1', 'player1', 'weapon1', 'armor1', 'food1', 5, 100),
     ('market_listing2', 'player2', 'weapon2', 'armor2', 'food2', 3, 80);
 
 -- Insert dummy data into Trades Table
-INSERT INTO Trades (TradeID, PlayerID, TradeWeponsID, TradeArmorsID, Gold_Amount)
+INSERT INTO Trades (TradeID, PlayerID, TradeWeaponsID, TradeArmorsID, Gold_Amount)
 VALUES 
     ('trade1', 'player1', 'trade_weapon1', 'trade_armor1', 50),
     ('trade2', 'player2', 'trade_weapon2', 'trade_armor2', 75);
@@ -185,7 +184,7 @@ select* from Food
 select * from FoodTypes
 select* from InventoryArmors
 select* from InventoryFoods
-select* from InventoryWepons
+select* from InventoryWeapons
 select * from ItemRarity
 select* from Items
 select* from ItemTypes

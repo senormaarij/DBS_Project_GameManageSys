@@ -443,7 +443,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="pName">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -459,7 +459,7 @@
      <string>Boldiblox</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="HP">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -475,7 +475,7 @@
      <string>1200/1500</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
+   <widget class="QLineEdit" name="Mana">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -491,7 +491,7 @@
      <string>5/90</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="Class">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -507,7 +507,7 @@
      <string>Sorcerer</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_6">
+   <widget class="QLineEdit" name="Gold">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -536,7 +536,7 @@
      <string>Level</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_7">
+   <widget class="QLineEdit" name="Level">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -552,6 +552,32 @@
      <string>5</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="Stamina">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>80</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>80</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stamina</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -559,7 +585,7 @@
      <x>0</x>
      <y>0</y>
      <width>662</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

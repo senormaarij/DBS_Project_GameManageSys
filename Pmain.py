@@ -5,8 +5,6 @@ import sys
 import pyodbc
 import re
 
-
-
 server = 'DESKTOP-1GNB7TH\SPARTA'
 database = 'GAME'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
@@ -101,7 +99,7 @@ class Login(QtWidgets.QMainWindow):
 
         if result:
             login_id = result[0]
-            print(login_id)
+            # print(login_id)
             return login_id
         else:
             return None
@@ -112,26 +110,30 @@ class Inventory(QtWidgets.QMainWindow):
 
         # Load the .ui file
         uic.loadUi('Inventory.ui', self)
-        print(playerID)
+        # print(playerID)
+
+
         #call login function with a unique playerID
         self.load_inventory(playerID)
         
     def load_inventory(self,playerID):
-        #self.setWindowTitle('Inventory of ',playerID)
+        self.setWindowTitle('Inventory of '+playerID)
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         
-        query = "Select PlayerUserName,Expfor_next_level, TotalManaCap, gold, explevel  from player where loginid = ?"
+        query = "Select PlayerUserName, health, Mana, stamina , gold, explevel from player where loginid = ?"
         result = cursor.execute(query, playerID).fetchone()
-        self.lineEdit_2.setText(result[0])
-        self.lineEdit_3.setText(str(result[1]))
-        self.lineEdit_4.setText(str(result[2]))
-        self.lineEdit_6.setText(str(result[3]))
-        self.lineEdit_7.setText(str(result[4]))
+        self.pName.setText(result[0])
+        self.HP.setText(str(result[1]))
+        self.Mana.setText(str(result[2]))
+        self.Stamina.setText(str(result[3]))
+        self.Gold.setText(str(result[4]))
+        self.Level.setText(str(result[5]))
+
         
         playerClass = "Select classtype from classes  where classid in (select classid from player where loginid = ?)"
         playerClassresult = cursor.execute(playerClass , playerID).fetchone()
-        self.lineEdit_5.setText(playerClassresult[0])
+        self.Class.setText(playerClassresult[0])
         
         
     def search(self):
