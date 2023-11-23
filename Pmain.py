@@ -115,9 +115,10 @@ class Inventory(QtWidgets.QMainWindow):
 
         #call login function with a unique playerID
         self.load_inventory(playerID)
-        
+
         
     def load_inventory(self,playerID):
+       
         self.setWindowTitle('Inventory of '+playerID)
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
@@ -135,6 +136,8 @@ class Inventory(QtWidgets.QMainWindow):
         playerClass = "Select classtype from classes  where classid in (select classid from player where loginid = ?)"
         playerClassresult = cursor.execute(playerClass , playerID).fetchone()
         self.Class.setText(playerClassresult[0])
+
+        
         
         
     def search(self):
@@ -164,6 +167,17 @@ class Inventory(QtWidgets.QMainWindow):
     def update_inventory():
         pass
     
+class Multiplayer(QtWidgets.QMainWindow):
+      def __init__(self,playerID):
+        super(Inventory, self).__init__()
+
+        # Load the .ui file
+        uic.loadUi('Inventory.ui', self)
+        # print(playerID)
+
+
+        #call login function with a unique playerID
+        self.load_inventory(playerID)
     
         
         
