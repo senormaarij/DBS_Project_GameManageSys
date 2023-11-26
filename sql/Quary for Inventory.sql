@@ -8,7 +8,7 @@ FROM
 JOIN 
     Inventory ON Player.InventoryID = Inventory.InventoryID
 LEFT JOIN 
-    InventoryWeapons ON Inventory.InventoryWepinsID = InventoryWeapons.InvenotryWeaponsID
+    InventoryWeapons ON Inventory.InventoryWepinsID = InventoryWeapons.InvenotryWeaponsI
 LEFT JOIN 
     Weapons ON InventoryWeapons.WeaponID = Weapons.WeaponID
 LEFT JOIN 
