@@ -63,30 +63,6 @@ class Login(QtWidgets.QMainWindow):
     def closed_clicked(self):
         sys.exit()
 
-    def open_player_int(self):
-        em = self.Email.text()
-        pswd = self.Password.text()
-        login_id = self.check_emailpass(em,pswd) 
-        if login_id is not None and "@" in em:
-            self.Inventory_win = Inventory(login_id)
-            self.Inventory_win.show()
-            self.hide()
-        else:
-            QtWidgets.QMessageBox.critical(self, "Error", "Email/Password might be incorrect")
-
-        
-
-    def check_available_email_login(self,email,Login):
-        connection = pyodbc.connect(connection_string)
-        cursor = connection.cursor()
-
-        query = "SELECT loginid FROM Login_Credentials WHERE email = ? or loginid = ?"
-        result = cursor.execute(query, email, Login)
-
-        connection.close()  # Close the connection explicitly
-    
-        return result is None
-
 
     def check_emailpass(self,email,password):
         connection = pyodbc.connect(connection_string)
@@ -102,12 +78,36 @@ class Login(QtWidgets.QMainWindow):
             # print(login_id)
             return login_id
         else:
-            return None
+            return None    
+
+    def check_available_email_login(self,email,Login):
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        query = "SELECT loginid FROM Login_Credentials WHERE email = ? or loginid = ?"
+        result = cursor.execute(query, email, Login)
+
+        connection.close()  # Close the connection explicitly
+    
+        return result is None
+
+    def open_player_int(self):
+            em = self.Email.text()
+            pswd = self.Password.text()
+            login_id = self.check_emailpass(em,pswd) 
+            if login_id is not None and "@" in em:
+                self.Inventory_win = Inventory(login_id)
+                self.Inventory_win.show()
+                self.hide()
+            else:
+                QtWidgets.QMessageBox.critical(self, "Error", "Email/Password might be incorrect")
+
+    
         
 class Inventory(QtWidgets.QMainWindow):
     def __init__(self,playerID):
         super(Inventory, self).__init__()
-
+        self.login_id = playerID
         # Load the .ui file
         uic.loadUi('Inventory.ui', self)
         # print(playerID)
@@ -115,6 +115,8 @@ class Inventory(QtWidgets.QMainWindow):
 
         #call login function with a unique playerID
         self.load_inventory(playerID)
+
+        self.Multiplay.clicked.connect(self.load_Multiplayer)
 
         
     def load_inventory(self,playerID):
@@ -144,40 +146,46 @@ class Inventory(QtWidgets.QMainWindow):
         search_text = self.lineEdit.search.text()
         rarity=""
         #rarity defined below is done by the ui we made if the database has different rarity change accordingly.
-        if self.checkBox_2.isChecked():
+        if self.Com.isChecked():
             rarity = "Common"
-        elif self.checkBox_3.isChecked():
+        elif self.Rar.isChecked():
             rarity = "Rare"
-        elif self.checkBox_4.isChecked():
+        elif self.Leg.isChecked():
             rarity = "Legendary"
         
         type = ""
-        if self.checkBox_5.isChecked():
+        if self.Cos.isChecked():
             type = "Consumable"
-        elif self.checkBox_6.isChecked():
+        elif self.Arm.isChecked():
             type = "Armour"
-        elif self.checkBox_7.isChecked():
+        elif self.Weap.isChecked():
             type = "Weapon"
         
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         #complete this query as per the SQL i do not know how we are implemrnting the SQL so i can not do this.
         query = "Select "
+
+
         
     def update_inventory():
         pass
+
+    def load_Multiplayer(self):
+        self.Multiplayer_win = Multiplayer(self.login_id)
+        self.Multiplayer_win.show()
+
+
     
 class Multiplayer(QtWidgets.QMainWindow):
       def __init__(self,playerID):
-        super(Inventory, self).__init__()
+        super(Multiplayer, self).__init__()
 
         # Load the .ui file
-        uic.loadUi('Inventory.ui', self)
-        # print(playerID)
+        uic.loadUi('Multiplayer.ui', self)
+        print(playerID)
 
 
-        #call login function with a unique playerID
-        self.load_inventory(playerID)
     
         
         
