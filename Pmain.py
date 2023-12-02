@@ -143,9 +143,21 @@ class Inventory(QtWidgets.QMainWindow):
         
         
     def search(self):
+        queryforinventoryid = "Select inventoryid from player where playerid = ?"
+        
+        inventoryid = cursor.execute(queryforinventoryid , self.login_id)
         search_text = self.lineEdit.search.text()
+        if not (self.Com.isChecked() or self.Rar.isChecked() or self.Leg.isChecked()):
+            QtWidgets.QMessageBox.warning(self, 'Warning', 'Please select Rarity')
+            return
+
+        if not (self.Cos.isChecked() or self.Arm.isChecked() or self.Weap.isChecked()):
+            QtWidgets.QMessageBox.warning(self, 'Warning', 'Please select Type')
+            return
+        
         rarity=""
         #rarity defined below is done by the ui we made if the database has different rarity change accordingly.
+        
         if self.Com.isChecked():
             rarity = "Common"
         elif self.Rar.isChecked():
@@ -164,8 +176,20 @@ class Inventory(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         #complete this query as per the SQL i do not know how we are implemrnting the SQL so i can not do this.
-        query = "Select "
-
+        query = "Select ItemName , Rarity , Type from Items where ItemName = ? and Rarity = ? and Type = ? and itemid in(select itemid from Inventory where InventoryID = ? )"
+        cursor.execute(query , search_text , rarity , type , inventoryid)
+    
+        rows = cursor.fetchall()
+        
+        self.inventorytable.setRowCount(len(rows))
+        self.inventorytable.setColumnCount(3)
+        
+        for i,row in enumerate(rows):
+            for j,col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                self.inventorytable.setItem(i,j,item)
+                    
+    
 
         
     def update_inventory():
