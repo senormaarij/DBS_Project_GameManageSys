@@ -143,6 +143,9 @@ class Inventory(QtWidgets.QMainWindow):
         
         
     def search(self):
+        queryforinventoryid = "Select inventoryid from player where playerid = ?"
+        
+        inventoryid = cursor.execute(queryforinventoryid , self.login_id)
         search_text = self.lineEdit.search.text()
         rarity=""
         #rarity defined below is done by the ui we made if the database has different rarity change accordingly.
@@ -164,7 +167,18 @@ class Inventory(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         #complete this query as per the SQL i do not know how we are implemrnting the SQL so i can not do this.
-        query = "Select "
+        query = "Select itemname as Name , Rarity , Type from Items where itemid in(select itemid from Inventory where InventoryID = ? )"
+        cursor.execute(query , inventoryid)
+        rows = cursor.fetchall()
+        
+        self.inventorytable.setRowCount(len(rows))
+        self.inventorytable.setColumnCount(3)
+        
+        for i,row in enumerate(rows):
+            for j,col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                self.inventorytable.setItem(i,j,item)
+                    
 
 
         
