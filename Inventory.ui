@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>537</height>
+    <width>646</width>
+    <height>551</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -367,7 +367,7 @@
        <string>Weapon</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="Arm">
+     <widget class="QCheckBox" name="Cos">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -380,7 +380,7 @@
        <string>Consumable</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="Cos">
+     <widget class="QCheckBox" name="Arm">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -588,8 +588,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>599</width>
-     <height>21</height>
+     <width>646</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
