@@ -6,7 +6,7 @@ import pyodbc
 import re
 
 server = 'DESKTOP-1GNB7TH\SPARTA'
-database = 'GAME'  # Name of your Northwind database
+database = 'GAME_N'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
 password = 'maarij0314'  # Specify a password if not using Windows Authentication
@@ -68,15 +68,15 @@ class Login(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
-        query = "SELECT loginid FROM Login_Credentials WHERE email = ? AND password = ?"
+        query = "SELECT username FROM Login_Credentials WHERE email = ? AND password = ?"
         result = cursor.execute(query, email, password).fetchone()
 
         connection.close()  # Close the connection explicitly
 
         if result:
-            login_id = result[0]
+            username = result[0]
             # print(login_id)
-            return login_id
+            return username
         else:
             return None    
 
@@ -84,7 +84,7 @@ class Login(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
-        query = "SELECT loginid FROM Login_Credentials WHERE email = ? or loginid = ?"
+        query = "SELECT username FROM Login_Credentials WHERE email = ? or loginid = ?"
         result = cursor.execute(query, email, Login)
 
         connection.close()  # Close the connection explicitly
@@ -94,69 +94,78 @@ class Login(QtWidgets.QMainWindow):
     def open_player_int(self):
             em = self.Email.text()
             pswd = self.Password.text()
-            login_id = self.check_emailpass(em,pswd) 
-            if login_id is not None and "@" in em:
-                self.Inventory_win = Inventory(login_id)
+            username = self.check_emailpass(em,pswd) 
+            if username is not None and "@" in em:
+                self.Inventory_win = Inventory(username)
                 self.Inventory_win.show()
                 self.hide()
             else:
                 QtWidgets.QMessageBox.critical(self, "Error", "Email/Password might be incorrect")
 
     
-        
+#-------------------------------------------------------------------------------------------- 
 class Inventory(QtWidgets.QMainWindow):
-    def __init__(self,playerID):
+    def __init__(self,Username):
         super(Inventory, self).__init__()
-        self.login_id = playerID
         # Load the .ui file
         uic.loadUi('Inventory.ui', self)
-        # print(playerID)
+
 
 
         #call login function with a unique playerID
-        self.load_inventory(playerID)
+        self.load_inventory(Username)
+
+        self.search_button.clicked.connect(self.search)
 
         self.Multiplay.clicked.connect(self.load_Multiplayer)
 
         
-    def load_inventory(self,playerID):
+    def load_inventory(self, Username):
        
-        self.setWindowTitle('Inventory of '+playerID)
+        self.setWindowTitle('Inventory of '+ Username)
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         
-        query = "Select PlayerUserName, health, Mana, stamina , gold, explevel from player where loginid = ?"
-        result = cursor.execute(query, playerID).fetchone()
+        query = "Select UserName, health, Mana , gold, level from player where username  = ?"
+        result = cursor.execute(query, Username).fetchone()
         self.pName.setText(result[0])
         self.HP.setText(str(result[1]))
         self.Mana.setText(str(result[2]))
-        self.Stamina.setText(str(result[3]))
-        self.Gold.setText(str(result[4]))
-        self.Level.setText(str(result[5]))
+        self.Gold.setText(str(result[3]))
+        self.Level.setText(str(result[4]))
 
         
-        playerClass = "Select classtype from classes  where classid in (select classid from player where loginid = ?)"
-        playerClassresult = cursor.execute(playerClass , playerID).fetchone()
+        playerClass = "Select classtype from classes  where classid in (select classid from player where username = ?)"
+        playerClassresult = cursor.execute(playerClass , Username).fetchone()
         self.Class.setText(playerClassresult[0])
 
         
         
         
     def search(self):
-        queryforinventoryid = "Select inventoryid from player where playerid = ?"
+        username = self.pName.text()
+
+           
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        queryforinventoryid = "Select playerid from player where username  = ?"
         
-        inventoryid = cursor.execute(queryforinventoryid , self.login_id)
-        search_text = self.lineEdit.search.text()
+        inventoryid = cursor.execute(queryforinventoryid , username).fetchone()
+
+        playerID = inventoryid[0]
+
+        search_text = self.searchbar.text()
+
+
         if not (self.Com.isChecked() or self.Rar.isChecked() or self.Leg.isChecked()):
-            QtWidgets.QMessageBox.warning(self, 'Warning', 'Please select Rarity')
+            QtWidgets.QMessageBox.warning(self, 'Warning', 'Please select a Rarity')
             return
 
         if not (self.Cos.isChecked() or self.Arm.isChecked() or self.Weap.isChecked()):
-            QtWidgets.QMessageBox.warning(self, 'Warning', 'Please select Type')
+            QtWidgets.QMessageBox.warning(self, 'Warning', 'Please select a Type')
             return
-        
-        rarity=""
-        #rarity defined below is done by the ui we made if the database has different rarity change accordingly.
+    
         
         if self.Com.isChecked():
             rarity = "Common"
@@ -176,8 +185,8 @@ class Inventory(QtWidgets.QMainWindow):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         #complete this query as per the SQL i do not know how we are implemrnting the SQL so i can not do this.
-        query = "Select ItemName , Rarity , Type from Items where ItemName = ? and Rarity = ? and Type = ? and itemid in(select itemid from Inventory where InventoryID = ? )"
-        cursor.execute(query , search_text , rarity , type , inventoryid)
+        query = "Select ItemName , Rarity , Type from Items where ItemName = ? and Rarity = ? and Type = ? and itemid in(select itemid from Inventory where playerid  = ? )"
+        cursor.execute(query , search_text , rarity , type , playerID)
     
         rows = cursor.fetchall()
         
@@ -188,6 +197,9 @@ class Inventory(QtWidgets.QMainWindow):
             for j,col in enumerate(row):
                 item = QTableWidgetItem(str(col))
                 self.inventorytable.setItem(i,j,item)
+
+
+        
                     
     
 
