@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>646</width>
-    <height>551</height>
+    <width>781</width>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,11 +20,20 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>280</y>
-      <width>381</width>
+      <width>471</width>
       <height>231</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/newPrefix/Blade.webp);
+background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-origin: content;
+border: 2px solid;
+color: white;</string>
     </property>
     <property name="title">
      <string>Player Inventory</string>
@@ -34,9 +43,14 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>321</width>
+       <width>391</width>
        <height>171</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: black;
+border: 0px solid;
+</string>
      </property>
      <row>
       <property name="text">
@@ -89,6 +103,10 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color:white;
+</string>
+    </property>
     <property name="text">
      <string>Player Name</string>
     </property>
@@ -101,6 +119,9 @@
       <width>51</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;</string>
     </property>
     <property name="text">
      <string>Gold</string>
@@ -115,6 +136,9 @@
       <height>13</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;</string>
+    </property>
     <property name="text">
      <string>HP</string>
     </property>
@@ -127,6 +151,9 @@
       <width>47</width>
       <height>13</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;</string>
     </property>
     <property name="text">
      <string>Mana</string>
@@ -141,6 +168,9 @@
       <height>13</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;</string>
+    </property>
     <property name="text">
      <string>Class</string>
     </property>
@@ -150,12 +180,30 @@
      <rect>
       <x>20</x>
       <y>140</y>
-      <width>511</width>
+      <width>631</width>
       <height>131</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/newPrefix/Kafka.webp);
+background-position: top center;
+
+color: white;</string>
+    </property>
     <property name="title">
      <string>Item Search</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
     <widget class="QLineEdit" name="searchbar">
      <property name="geometry">
@@ -166,6 +214,9 @@
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #e0e0e0;</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="search_button">
      <property name="geometry">
@@ -175,6 +226,11 @@
        <width>81</width>
        <height>23</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #e0e0e0;
+color: white;
+</string>
      </property>
      <property name="text">
       <string>Search</string>
@@ -189,6 +245,10 @@
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+</string>
+     </property>
      <property name="text">
       <string>Drop Item </string>
      </property>
@@ -201,6 +261,9 @@
        <width>241</width>
        <height>111</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;</string>
      </property>
      <property name="title">
       <string>Filter</string>
@@ -223,7 +286,7 @@
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>70</width>
+        <width>81</width>
         <height>17</height>
        </rect>
       </property>
@@ -400,6 +463,9 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: black;</string>
+    </property>
     <property name="text">
      <string>Level</string>
     </property>
@@ -420,71 +486,99 @@
      <string>5</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="Stamina">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
+   <widget class="QFrame" name="frame_5">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>80</y>
-      <width>61</width>
-      <height>20</height>
+      <x>0</x>
+      <y>0</y>
+      <width>771</width>
+      <height>531</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>80</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/newPrefix/sh.webp);
+background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-origin: content;</string>
     </property>
-    <property name="text">
-     <string>Stamina</string>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_4">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>320</y>
-      <width>211</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Multiplayer</string>
-    </property>
-    <widget class="QPushButton" name="Multiplay">
+    <widget class="QGroupBox" name="groupBox_4">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>30</y>
-       <width>75</width>
-       <height>23</height>
+       <x>520</x>
+       <y>360</y>
+       <width>211</width>
+       <height>80</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Connect</string>
+     <property name="styleSheet">
+      <string notr="true">
+color: white;
+</string>
      </property>
+     <property name="title">
+      <string>Multiplayer</string>
+     </property>
+     <widget class="QPushButton" name="Multiplay">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>30</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
+      <property name="text">
+       <string>Connect</string>
+      </property>
+     </widget>
     </widget>
    </widget>
+   <zorder>frame_5</zorder>
+   <zorder>groupBox_2</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_5</zorder>
+   <zorder>pName</zorder>
+   <zorder>HP</zorder>
+   <zorder>Mana</zorder>
+   <zorder>Class</zorder>
+   <zorder>Gold</zorder>
+   <zorder>label_8</zorder>
+   <zorder>Level</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>646</width>
-     <height>21</height>
+     <width>781</width>
+     <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuInventory_Display">
+    <property name="title">
+     <string>Inventory Display</string>
+    </property>
+   </widget>
+   <addaction name="menuInventory_Display"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+<<<<<<< Updated upstream
  <resources/>
+=======
+ <resources>
+  <include location="Kafkabg.qrc"/>
+  <include location="shbg.qrc"/>
+  <include location="Bladebg.qrc"/>
+ </resources>
+>>>>>>> Stashed changes
  <connections/>
 </ui>
