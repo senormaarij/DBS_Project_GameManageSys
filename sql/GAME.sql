@@ -160,7 +160,14 @@ INSERT INTO Market_Item (ItemID, Gold)
 VALUES 
     (1, 50),   
     (2, 20),   
-    (3, 80);  
+    (3, 80),
+    (4, 30),
+    (5, 15),
+    (6, 25),
+    (7, 10),
+    (8, 35),
+    (9, 45),
+    (10, 40); 
 
 select * from Login_Credentials
 select * from Classes 

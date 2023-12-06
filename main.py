@@ -9,7 +9,7 @@ import Kafkabg
 import shbg
 # from generated_ui import Ui_MainWindow
 #DESKTOP-DF4VK8E\DATABASE_WORK
-server = 'DESKTOP-1GNB7TH\SPARTA'
+server = 'DESKTOP-DF4VK8E\DATABASE_WORK'
 database = 'GAME'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
@@ -532,8 +532,9 @@ class Market(QtWidgets.QMainWindow):
             gold = cursor.execute(gold_query,self.mark_playerID).fetchone()
 
             check_q = "Select itemid from inventory where Playerid = ?"
-            check = cursor.execute(check_q, self.mark_playerID).fetchall()
-            
+            cursor.execute(check_q, self.mark_playerID)
+            check = cursor.fetchall()
+            final = [item[0] for item in check]
 
             connection.close()
 
@@ -542,11 +543,7 @@ class Market(QtWidgets.QMainWindow):
             current_gold = gold[0]
 
 
-        
-
-
-
-            if itemid not in check:
+            if itemid not in final:
                 if (current_gold - Cost >= 0):
                     connection = pyodbc.connect(connection_string)
                     cursor = connection.cursor()
