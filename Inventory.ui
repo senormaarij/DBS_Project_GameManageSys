@@ -593,18 +593,8 @@ background: middle right;
     <rect>
      <x>0</x>
      <y>0</y>
-<<<<<<< Updated upstream
      <width>781</width>
      <height>21</height>
-=======
-<<<<<<< HEAD
-     <width>772</width>
-     <height>26</height>
-=======
-     <width>781</width>
-     <height>21</height>
->>>>>>> a8567f625600c9752fc077b2a26a529281cd4591
->>>>>>> Stashed changes
     </rect>
    </property>
    <widget class="QMenu" name="menuInventory_Display">

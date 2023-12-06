@@ -9,8 +9,8 @@ import Kafkabg
 import shbg
 # from generated_ui import Ui_MainWindow
 
-server = 'DESKTOP-1GNB7TH\SPARTA'
-database = 'GAME_N'  # Name of your Northwind database
+server = 'DESKTOP-S1SVBKK\SQL_SERVER'
+database = 'Game'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
 password = 'maarij0314'  # Specify a password if not using Windows Authentication
@@ -119,7 +119,7 @@ class Inventory(QtWidgets.QMainWindow):
         uic.loadUi('Inventory.ui', self)  
 
 
-        
+        self.Username = Username 
 
         self.inventory_lst = []
 
@@ -232,34 +232,24 @@ class Inventory(QtWidgets.QMainWindow):
             self.inventorytable.setItem(i, 0, item_name)
             self.inventorytable.setItem(i, 1, rarity)
             self.inventorytable.setItem(i, 2, item_type)
-
-        
-
-
-
-
-
-        
-                    
-    
-
-        
+  
     def update_inventory():
         pass
 
     def load_Multiplayer(self):
-        self.Multiplayer_win = Multiplayer(self.login_id)
+        self.Multiplayer_win = Multiplayer(self.Username)
         self.Multiplayer_win.show()
+        self.hide()
 
 
     
 class Multiplayer(QtWidgets.QMainWindow):
-      def __init__(self,playerID):
+      def __init__(self,Username):
         super(Multiplayer, self).__init__()
 
         # Load the .ui file
         uic.loadUi('Multiplayer.ui', self)
-        print(playerID)
+        print(Username)
 
 
     
