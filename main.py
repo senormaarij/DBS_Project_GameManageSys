@@ -273,7 +273,6 @@ class Inventory(QtWidgets.QMainWindow):
     def load_Multiplayer(self):
         self.Multiplayer_win = Multiplayer(self.Username)
         self.Multiplayer_win.show()
-        self.hide()
 
     def on_table_cell_clicked(self, row, col):
         self.selected_row = row
@@ -290,7 +289,6 @@ class Inventory(QtWidgets.QMainWindow):
             
             self.AddTrade_win = AddTrade(self.Username, Itemid)
             self.AddTrade_win.show()
-            self.hide()
         else:
             QtWidgets.QMessageBox.critical(self, "Error!" ,"No row selected. Please click on a row in the table before confirming the trade!")
 
@@ -413,7 +411,6 @@ class Multiplayer(QtWidgets.QMainWindow):
         
         self.market = Market(playerID)
         self.market.show()
-        self.hide()
 
     
 
