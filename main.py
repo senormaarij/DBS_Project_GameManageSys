@@ -9,8 +9,8 @@ import Kafkabg
 import shbg
 # from generated_ui import Ui_MainWindow
 
-server = 'DESKTOP-S1SVBKK\SQL_SERVER'
-database = 'Game'  # Name of your Northwind database
+server = 'DESKTOP-1GNB7TH\SPARTA'
+database = 'GAME'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
 password = 'maarij0314'  # Specify a password if not using Windows Authentication
@@ -80,7 +80,7 @@ class Login(QtWidgets.QMainWindow):
 
 
 
-        
+
         if result:
             username = result[0]
             # print(login_id)
@@ -250,6 +250,8 @@ class Multiplayer(QtWidgets.QMainWindow):
         # Load the .ui file
         uic.loadUi('Multiplayer.ui', self)
         print(Username)
+
+        
 
 
     
