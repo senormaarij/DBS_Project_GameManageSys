@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>482</width>
+    <height>597</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,8 +23,8 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>751</width>
-      <height>521</height>
+      <width>441</width>
+      <height>541</height>
      </rect>
     </property>
     <property name="title">
@@ -33,9 +33,9 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
     <widget class="QTableWidget" name="tableWidget">
      <property name="geometry">
       <rect>
-       <x>140</x>
-       <y>40</y>
-       <width>511</width>
+       <x>20</x>
+       <y>30</y>
+       <width>401</width>
        <height>461</height>
       </rect>
      </property>
@@ -66,6 +66,24 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
       </property>
      </column>
     </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>500</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 63 9pt &quot;Bahnschrift SemiBold&quot;;
+border: 2px solid;
+color: white;</string>
+     </property>
+     <property name="text">
+      <string>Buy</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -73,8 +91,8 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>26</height>
+     <width>482</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
