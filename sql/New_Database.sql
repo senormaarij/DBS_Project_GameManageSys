@@ -64,3 +64,10 @@ CREATE TABLE Trade (
     ItemToTradeID int REFERENCES Items(ItemID),
     ItemNeedID int REFERENCES Items(ItemID)
 );
+
+CREATE TABLE Market_Item (
+    ItemID int PRIMARY KEY REFERENCES Items(ItemID),
+    Gold int
+);
+
+  

@@ -65,17 +65,17 @@
      </row>
      <column>
       <property name="text">
-       <string>New Column</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
        <string>Item Name</string>
       </property>
      </column>
      <column>
       <property name="text">
        <string>Rarity</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Type</string>
       </property>
      </column>
     </widget>
@@ -485,8 +485,6 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="../../../../../Desktop/BGIMG.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

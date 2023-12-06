@@ -25,10 +25,13 @@ class Login(QtWidgets.QMainWindow):
         # Call the inherited classes __init__ method
         super(Login, self).__init__()
 
+        
+
         # Load the .ui file
         uic.loadUi('Login.ui', self)
         
         # Connect Submit Button to Event Handling Code
+        self.setWindowTitle('Login')
         self.login.clicked.connect(self.open_player_int)
         self.Register.clicked.connect(self.register_player)
         self.close.clicked.connect(self.closed_clicked)
@@ -112,6 +115,9 @@ class Inventory(QtWidgets.QMainWindow):
 
 
 
+
+        self.inventory_lst = []
+
         #call login function with a unique playerID
         self.load_inventory(Username)
 
@@ -123,6 +129,10 @@ class Inventory(QtWidgets.QMainWindow):
     def load_inventory(self, Username):
        
         self.setWindowTitle('Inventory of '+ Username)
+
+
+        #getting Player Details
+
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
         
@@ -139,64 +149,89 @@ class Inventory(QtWidgets.QMainWindow):
         playerClassresult = cursor.execute(playerClass , Username).fetchone()
         self.Class.setText(playerClassresult[0])
 
-        
-        
-        
-    def search(self):
-        username = self.pName.text()
-
-           
+        #getting player inventory
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
-
-        queryforinventoryid = "Select playerid from player where username  = ?"
-        
-        inventoryid = cursor.execute(queryforinventoryid , username).fetchone()
-
-        playerID = inventoryid[0]
-
-        search_text = self.searchbar.text()
-
-
-        if not (self.Com.isChecked() or self.Rar.isChecked() or self.Leg.isChecked()):
-            QtWidgets.QMessageBox.warning(self, 'Warning', 'Please select a Rarity')
-            return
-
-        if not (self.Cos.isChecked() or self.Arm.isChecked() or self.Weap.isChecked()):
-            QtWidgets.QMessageBox.warning(self, 'Warning', 'Please select a Type')
-            return
+   
+        query = "SELECT Items.ItemName,Items.Rarity, Items.Type FROM Inventory JOIN Player ON Inventory.Playerid = Player.Playerid JOIN Items ON Inventory.ItemID = Items.ItemID WHERE Player.Username = ?"
+        cursor.execute(query , Username)
     
+        rows = cursor.fetchall()
+
+        self.inventorytable.setRowCount(len(rows))
+        self.inventorytable.setColumnCount(3)
+
+        for i,row in enumerate(rows):
+            for j,col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                self.inventorytable.setItem(i,j,item)
+
+          
+        for row in rows:
+            inventory_item = {
+                'ItemName': row[0],
+                'Rarity': row[1],
+                'Type': row[2]
+            }
+            self.inventory_lst.append(inventory_item)
         
+        print(self.inventory_lst)
+
+        
+        
+        
+    
+    def search(self):
+        username = self.pName.text()
+        itemname = self.searchbar.text().lower()
+
+        rarity = None
         if self.Com.isChecked():
             rarity = "Common"
         elif self.Rar.isChecked():
             rarity = "Rare"
         elif self.Leg.isChecked():
             rarity = "Legendary"
-        
-        type = ""
+
+        item_type = None
         if self.Cos.isChecked():
-            type = "Consumable"
+            item_type = "Consumable"
         elif self.Arm.isChecked():
-            type = "Armour"
+            item_type = "Armour"
         elif self.Weap.isChecked():
-            type = "Weapon"
-        
-        connection = pyodbc.connect(connection_string)
-        cursor = connection.cursor()
-        #complete this query as per the SQL i do not know how we are implemrnting the SQL so i can not do this.
-        query = "Select ItemName , Rarity , Type from Items where ItemName = ? and Rarity = ? and Type = ? and itemid in(select itemid from Inventory where playerid  = ? )"
-        cursor.execute(query , search_text , rarity , type , playerID)
-    
-        rows = cursor.fetchall()
-        
-        self.inventorytable.setRowCount(len(rows))
+            item_type = "Weapon"
+
+        filtered_inventory = self.filter_inventory(itemname, rarity, item_type)
+        self.update_table(filtered_inventory)
+
+    def filter_inventory(self, itemname, rarity, item_type):
+        filtered_inventory = []
+
+        for item in self.inventory_lst:
+            if (not itemname or itemname in item['ItemName'].lower()) and \
+               (rarity is None or item['Rarity'] == rarity) and \
+               (item_type is None or item['Type'] == item_type):
+                filtered_inventory.append(item)
+
+        return filtered_inventory
+
+    def update_table(self, inventory):
+        self.inventorytable.setRowCount(len(inventory))
         self.inventorytable.setColumnCount(3)
+
+        for i, item in enumerate(inventory):
+            item_name = QTableWidgetItem(item['ItemName'])
+            rarity = QTableWidgetItem(item['Rarity'])
+            item_type = QTableWidgetItem(item['Type'])
+
+            self.inventorytable.setItem(i, 0, item_name)
+            self.inventorytable.setItem(i, 1, rarity)
+            self.inventorytable.setItem(i, 2, item_type)
+
         
-        for i,row in enumerate(rows):
-            for j,col in enumerate(row):
-                item = QTableWidgetItem(str(col))
-                self.inventorytable.setItem(i,j,item)
+
+
+
 
 
         

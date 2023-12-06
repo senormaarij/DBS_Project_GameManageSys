@@ -65,3 +65,8 @@ VALUES
     (2, 2, 1),
     (3, 1, 2);
   
+INSERT INTO Market_Item (ItemID, Gold)
+VALUES 
+    (1, 50),   
+    (2, 20),   
+    (3, 80);   
