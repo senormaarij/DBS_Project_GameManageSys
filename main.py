@@ -214,7 +214,7 @@ class Inventory(QtWidgets.QMainWindow):
             }
             self.inventory_lst.append(inventory_item)
         
-        print(self.inventory_lst)
+        # print(self.inventory_lst)
 
         
         
@@ -304,6 +304,8 @@ class Multiplayer(QtWidgets.QMainWindow):
         uic.loadUi('Multiplayer.ui', self)
         # print(Username)
         self.Username = Username
+
+        # Trade display.
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
@@ -312,13 +314,28 @@ class Multiplayer(QtWidgets.QMainWindow):
         cursor.execute(query)
         rows = cursor.fetchall()
 
+        #Faction display.
+
+        faction_query = "select username from player where playerid in (select playerid from player where factionid in (select factionid from player where username = ?))"
+        cursor.execute(faction_query, self.Username)
+        faction_rows = cursor.fetchall()
+
         self.tableWidget_2.setRowCount(len(rows))
         self.tableWidget_2.setColumnCount(6)
+
+        self.factionTable.setRowCount(len(faction_rows))
+        self.factionTable.setColumnCount(1)
 
         for i, row in enumerate(rows):
             for j, value in enumerate(row):
                 item = QtWidgets.QTableWidgetItem(str(value))
                 self.tableWidget_2.setItem(i, j, item)
+
+        for i, row in enumerate(faction_rows):
+            for j, value in enumerate(row):
+                item = QtWidgets.QTableWidgetItem(str(value))
+                self.factionTable.setItem(i, j, item)
+        
 
         self.tableWidget_2.cellClicked.connect(self.on_table_cell_clicked)
         self.TradeConfirm.clicked.connect(self.confirm_trade)

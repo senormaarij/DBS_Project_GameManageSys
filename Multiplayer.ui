@@ -128,13 +128,13 @@ font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
     <property name="title">
      <string>Faction</string>
     </property>
-    <widget class="QTableWidget" name="tableWidget">
+    <widget class="QTableWidget" name="factionTable">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>271</width>
-       <height>271</height>
+       <width>121</width>
+       <height>141</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -169,19 +169,9 @@ font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
        <string>Members</string>
       </property>
      </column>
-     <column>
-      <property name="text">
-       <string>Role</string>
-      </property>
-     </column>
      <item row="0" column="0">
       <property name="text">
        <string>Boldibox </string>
-      </property>
-     </item>
-     <item row="0" column="1">
-      <property name="text">
-       <string>Admin</string>
       </property>
      </item>
      <item row="1" column="0">
@@ -189,29 +179,14 @@ font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
        <string>TreKty</string>
       </property>
      </item>
-     <item row="1" column="1">
-      <property name="text">
-       <string>Captain</string>
-      </property>
-     </item>
      <item row="2" column="0">
       <property name="text">
        <string>JonDoe54</string>
       </property>
      </item>
-     <item row="2" column="1">
-      <property name="text">
-       <string>Rookie</string>
-      </property>
-     </item>
      <item row="3" column="0">
       <property name="text">
        <string>Fafnir123</string>
-      </property>
-     </item>
-     <item row="3" column="1">
-      <property name="text">
-       <string>Rookie</string>
       </property>
      </item>
     </widget>
@@ -255,7 +230,7 @@ font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>891</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
