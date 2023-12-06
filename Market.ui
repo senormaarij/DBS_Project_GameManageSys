@@ -30,7 +30,7 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
     <property name="title">
      <string>Market Listing</string>
     </property>
-    <widget class="QTableWidget" name="tableWidget">
+    <widget class="QTableWidget" name="M_table">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -66,7 +66,7 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
       </property>
      </column>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="buy">
      <property name="geometry">
       <rect>
        <x>20</x>

@@ -9,8 +9,8 @@ import Kafkabg
 import shbg
 # from generated_ui import Ui_MainWindow
 #DESKTOP-DF4VK8E\DATABASE_WORK
-server = 'DESKTOP-DF4VK8E\DATABASE_WORK'
-database = 'Game'  # Name of your Northwind database
+server = 'DESKTOP-1GNB7TH\SPARTA'
+database = 'GAME'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
 password = 'maarij0314'  # Specify a password if not using Windows Authentication
@@ -305,6 +305,9 @@ class Multiplayer(QtWidgets.QMainWindow):
         # print(Username)
         self.Username = Username
 
+
+        self.MarketButton.clicked.connect(self.open_market)
+
         # Trade display.
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
@@ -396,6 +399,24 @@ class Multiplayer(QtWidgets.QMainWindow):
         connection.close()
 
         return count > 0
+
+
+    def open_market(self):
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        query = "SELECT Playerid from player where username = ?"
+        result = cursor.execute(query, self.Username).fetchone()
+        connection.close()
+     
+        playerID = result[0]
+        
+        self.market = Market(playerID)
+        self.market.show()
+        self.hide()
+
+    
+
     
 class AddTrade(QtWidgets.QMainWindow):
     def __init__(self, Username, itemid):
@@ -451,6 +472,123 @@ class AddTrade(QtWidgets.QMainWindow):
             
         else:
             QtWidgets.QMessageBox.critical(self, "Error!" ,"No row selected. Please click on a row in the table before confirming the trade!")
+
+
+class Market(QtWidgets.QMainWindow):
+    def __init__(self,PlayerID):
+        super(Market, self).__init__()
+
+        uic.loadUi('Market.ui', self)
+        self.mark_playerID = PlayerID
+
+        self.load_Market()
+
+        self.buy.clicked.connect(self.purchase)
+
+    def load_Market(self):
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        mark_query = "SELECT Items.ItemName, Items.Rarity, Items.Type, Market_Item.Gold FROM Items JOIN Market_Item ON Items.ItemID = Market_Item.ItemID"
+
+        market = cursor.execute(mark_query).fetchall()
+        
+        connection.close()
+
+        self.M_table.setRowCount(len(market))
+        self.M_table.setColumnCount(4)
+
+        for i, row in enumerate(market):
+            for j, col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                self.M_table.setItem(i, j, item)
+
+
+
+    def purchase(self):
+        selected_row = self.M_table.currentRow()
+
+        if selected_row is not None:
+        
+            ItemName  = self.M_table.item(selected_row, 0).text()
+
+            Rarity = self.M_table.item(selected_row, 1).text()
+
+            Type =  self.M_table.item(selected_row, 2).text()
+
+            Cost =  int(self.M_table.item(selected_row, 3).text())
+
+            
+
+
+
+            connection = pyodbc.connect(connection_string)
+            cursor = connection.cursor()
+
+            mark_query = "SELECT ItemID from Items where ItemName = ? and Rarity = ? and Type = ?"
+            item  = cursor.execute(mark_query,(ItemName,Rarity, Type)).fetchone()
+
+            gold_query = "SELECT Gold from player where Playerid = ?"
+            gold = cursor.execute(gold_query,self.mark_playerID).fetchone()
+
+            check_q = "Select itemid from inventory where Playerid = ?"
+            check = cursor.execute(check_q, self.mark_playerID).fetchall()
+            
+
+            connection.close()
+
+
+            itemid = item[0]   
+            current_gold = gold[0]
+
+
+        
+
+
+
+            if itemid not in check:
+                if (current_gold - Cost >= 0):
+                    connection = pyodbc.connect(connection_string)
+                    cursor = connection.cursor()
+                    insert_q = "INSERT INTO Inventory (Playerid, ItemID) VALUES (?, ?)"
+                    cursor.execute(insert_q,(self.mark_playerID,itemid))
+
+                    cursor = connection.cursor()
+                    update_gold_query = "UPDATE Player SET Gold = ? WHERE PlayerID = ?"
+                    cursor.execute(update_gold_query, (current_gold-Cost),self.mark_playerID)
+
+                    connection.commit()
+                    connection.close()
+                else:
+                    QtWidgets.QMessageBox.critical(self, "Error!" ,"You don't have enough gold to purchase")
+            else:
+                QtWidgets.QMessageBox.critical(self, "Error!" ,"You already own this item")
+        else:
+             QtWidgets.QMessageBox.critical(self, "Error!" ,"No row selected. Please click on a item to purchase")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+    
+
+
+
+        
 
 def main():
     app = QApplication(sys.argv)
