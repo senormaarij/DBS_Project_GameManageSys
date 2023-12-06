@@ -158,7 +158,9 @@ class Inventory(QtWidgets.QMainWindow):
         self.search_button.clicked.connect(self.search)
 
         self.Multiplay.clicked.connect(self.load_Multiplayer)
-
+        self.inventorytable.cellClicked.connect(self.on_table_cell_clicked)
+        self.pushButton.clicked.connect(self.load_AddTrade)
+        self.selected_row = None
         
     def load_inventory(self, Username):
        
@@ -273,6 +275,25 @@ class Inventory(QtWidgets.QMainWindow):
         self.Multiplayer_win.show()
         self.hide()
 
+    def on_table_cell_clicked(self, row, col):
+        self.selected_row = row
+
+    def load_AddTrade(self):
+        if self.selected_row is not None:
+            self.ItemName = self.inventorytable.item(self.selected_row, 0).text()
+            self.ItemRarity = self.inventorytable.item(self.selected_row, 1).text()
+            connection = pyodbc.connect(connection_string)
+            cursor = connection.cursor()
+            query = "select itemId from items where itemname = ? and rarity = ?"
+            result = cursor.execute(query, self.ItemName, self.ItemRarity).fetchone()
+            Itemid = result[0]
+            
+            self.AddTrade_win = AddTrade(self.Username, Itemid)
+            self.AddTrade_win.show()
+            self.hide()
+        else:
+            QtWidgets.QMessageBox.critical(self, "Error!" ,"No row selected. Please click on a row in the table before confirming the trade!")
+
 
     
 class Multiplayer(QtWidgets.QMainWindow):
@@ -302,6 +323,7 @@ class Multiplayer(QtWidgets.QMainWindow):
         self.tableWidget_2.cellClicked.connect(self.on_table_cell_clicked)
         self.TradeConfirm.clicked.connect(self.confirm_trade)
         self.selected_row = None
+
     def on_table_cell_clicked(self, row, col):
         self.selected_row = row
 
@@ -358,7 +380,60 @@ class Multiplayer(QtWidgets.QMainWindow):
 
         return count > 0
     
+class AddTrade(QtWidgets.QMainWindow):
+    def __init__(self, Username, itemid):
+        super(AddTrade, self).__init__()
 
+        # Load the .ui file
+        uic.loadUi('Trade Confirm.ui', self)
+
+        self.Username = Username
+        self.itemid = itemid
+
+        # Items display.
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        query = "SELECT ItemName, Rarity, Type FROM Items"
+
+        cursor.execute(query)
+        items = cursor.fetchall()
+
+        self.tableWidget.setRowCount(len(items))
+        self.tableWidget.setColumnCount(3)
+
+        for i, item in enumerate(items):
+            for j, value in enumerate(item):
+                item = QtWidgets.QTableWidgetItem(str(value))
+                self.tableWidget.setItem(i, j, item)
+
+        self.tableWidget.cellClicked.connect(self.on_table_cell_clicked)
+        self.pushButton.clicked.connect(self.add_trade)
+        self.selected_row = None
+
+    def on_table_cell_clicked(self, row, col):
+        self.selected_row = row
+    
+    def add_trade(self):
+        self.select_lst = []
+        if self.selected_row is not None:
+            # Collect data
+            for i in range(3):
+                self.select_lst.append(self.tableWidget.item(self.selected_row, i).text())
+            connection = pyodbc.connect(connection_string)
+            cursor = connection.cursor()
+            query = "select itemId from items where itemname = ? and rarity = ?"
+            result = cursor.execute(query, self.select_lst[0], self.select_lst[1]).fetchone()
+            needId = result[0]
+
+            #insert data into Trade.
+            insert_query = "Insert INTO Trade(BelongsTo, ItemToTradeID, ItemNeedID) values ((select playerid from player where username = ?), ?, ?)"
+            cursor.execute(insert_query, self.Username, self.itemid, needId)
+            connection.commit()
+            QtWidgets.QMessageBox.information(self, "Success" ,"Trade added successfully!")
+            
+        else:
+            QtWidgets.QMessageBox.critical(self, "Error!" ,"No row selected. Please click on a row in the table before confirming the trade!")
 
 def main():
     app = QApplication(sys.argv)
