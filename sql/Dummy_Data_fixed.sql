@@ -58,3 +58,10 @@ VALUES
     (3, 1),
     (4, 2),
     (5, 3);
+
+INSERT INTO Trade (BelongsTo, ItemToTradeID, ItemNeedID)
+VALUES
+    (1, 1, 3),
+    (2, 2, 1),
+    (3, 1, 2);
+  

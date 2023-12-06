@@ -57,3 +57,10 @@ CREATE TABLE Inventory (
     PRIMARY KEY (Playerid, ItemID)
 );
 
+
+CREATE TABLE Trade (
+    TradeID int PRIMARY KEY IDENTITY(1,1),
+    BelongsTo int REFERENCES Player(Playerid),
+    ItemToTradeID int REFERENCES Items(ItemID),
+    ItemNeedID int REFERENCES Items(ItemID)
+);
