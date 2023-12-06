@@ -39,30 +39,55 @@ class Login(QtWidgets.QMainWindow):
         self.close.clicked.connect(self.closed_clicked)
 
     def register_player(self):
+
+        #----------------------helper function---------------------------
         def validate_email(email):
             if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
                 return True
             return False
+        #----------------------------------------------------------------
             
-        em = self.REmail.text()
-        pswd = self.RPassword.text()
-        loginid = self.RLoginID.text()
-        print(em," ",pswd," ",loginid)
-        if self.check_available_email_login:
+        r_em = self.REmail.text()
+        r_pswd = self.RPassword.text()
+        r_username = self.RUsername.text()
 
-            if validate_email(em):
+        def_lvl = 1
+        def_gold = 0 
+        def_mana = 30
+        def_health = 100 
+
+
+        print(r_em," ",r_pswd," ",r_username)
+
+
+        if self.check_available_email_login:
+            if validate_email(r_em):
+
                 connection = pyodbc.connect(connection_string)
                 cursor = connection.cursor()
-                query = "INSERT INTO Login_Credentials ([loginid], [email], [password])VALUES (?, ?, ?)"
-                result = cursor.execute(query, loginid, em,pswd)
+                query = "INSERT INTO Login_Credentials ([username], [email], [password])VALUES (?, ?, ?)"
+                result = cursor.execute(query, r_username, r_em,r_pswd)
                 connection.commit()
+                connection.close()     
+
+                connection = pyodbc.connect(connection_string)
+                cursor = connection.cursor()
+                i_query = "INSERT INTO Player ([username], [health], [gold], [mana], [level]) VALUES (?,?,?,?,?)"
+                result = cursor.execute(i_query, (r_username, def_health, def_gold, def_mana, def_lvl))
+                connection.commit()
+                connection.close()
+
+
                 QtWidgets.QMessageBox.critical(self, "Success", "Registered successfully")
-                connection.close()        
             else:
                 QtWidgets.QMessageBox.critical(self, "Error", "Please enter a correct Email")
         else:
              QtWidgets.QMessageBox.critical(self, "Error", "Email/LoginID already exists")
-        pass
+
+        self.REmail.clear()
+        self.RPassword.clear()
+        self.RUsername.clear()
+        
 
     
     def closed_clicked(self):
@@ -78,12 +103,8 @@ class Login(QtWidgets.QMainWindow):
 
         connection.close()
 
-
-
-
         if result:
             username = result[0]
-            # print(login_id)
             return username
         else:
             return None    
@@ -152,7 +173,10 @@ class Inventory(QtWidgets.QMainWindow):
         
         playerClass = "Select classtype from classes  where classid in (select classid from player where username = ?)"
         playerClassresult = cursor.execute(playerClass , Username).fetchone()
-        self.Class.setText(playerClassresult[0])
+
+        if playerClassresult is not None:
+            self.Class.setText(playerClassresult[0])
+        
 
         #getting player inventory
         connection = pyodbc.connect(connection_string)
@@ -257,6 +281,45 @@ class Multiplayer(QtWidgets.QMainWindow):
     
         
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def main():
     app = QApplication(sys.argv)

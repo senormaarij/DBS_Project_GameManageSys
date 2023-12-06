@@ -134,7 +134,7 @@
       <string>Register</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="RLoginID">
+    <widget class="QLineEdit" name="RUsername">
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -164,7 +164,7 @@
       </rect>
      </property>
      <property name="text">
-      <string> Player ID</string>
+      <string>Username </string>
      </property>
     </widget>
     <widget class="QLabel" name="label_6">

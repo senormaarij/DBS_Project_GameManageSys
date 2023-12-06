@@ -311,7 +311,7 @@ color: white;
      </rect>
     </property>
     <property name="text">
-     <string>Boldiblox</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="HP">
@@ -327,7 +327,7 @@ color: white;
      </rect>
     </property>
     <property name="text">
-     <string>1200/1500</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="Mana">
@@ -343,7 +343,7 @@ color: white;
      </rect>
     </property>
     <property name="text">
-     <string>5/90</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="Class">
@@ -359,7 +359,7 @@ color: white;
      </rect>
     </property>
     <property name="text">
-     <string>Sorcerer</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="Gold">
@@ -375,7 +375,7 @@ color: white;
      </rect>
     </property>
     <property name="text">
-     <string>6000</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -407,7 +407,7 @@ color: white;
      </rect>
     </property>
     <property name="text">
-     <string>5</string>
+     <string/>
     </property>
    </widget>
    <widget class="QFrame" name="frame_5">
@@ -593,7 +593,7 @@ background: middle right;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>781</width>
+     <width>772</width>
      <height>21</height>
     </rect>
    </property>
