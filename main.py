@@ -38,30 +38,64 @@ class Login(QtWidgets.QMainWindow):
         self.Register.clicked.connect(self.register_player)
         self.close.clicked.connect(self.closed_clicked)
 
-    def register_player(self):
 
-        #----------------------helper function---------------------------
-        def validate_email(email):
-            if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
-                return True
+    #----------------------helper function--------------------------- 
+
+    def check_available_email_login(self,email,username):
+        print(email,username)
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        query = "SELECT * FROM Login_Credentials WHERE email = ? or  username = ?"
+        result = cursor.execute(query, email, username).fetchone()
+
+        connection.close()  
+        print("checked")
+        if result is None:
+            return True
+        else:
             return False
-        #----------------------------------------------------------------
-            
+
+
+    def validate_email(self,email):
+        if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
+            return True
+        return False
+
+    
+    def check_emailpass(self,email,password):
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        query = "SELECT username FROM Login_Credentials WHERE email = ? AND password = ?"
+        result = cursor.execute(query, email, password).fetchone()
+
+        connection.close()
+
+        if result:
+            username = result[0]
+            return username
+        else:
+            return None   
+
+    #----------------------------------------------------------------
+
+
+    def register_player(self):
         r_em = self.REmail.text()
         r_pswd = self.RPassword.text()
         r_username = self.RUsername.text()
 
+        #---default values for new player-----
         def_lvl = 1
         def_gold = 0 
         def_mana = 30
         def_health = 100 
 
+        #print(r_em," ",r_pswd," ",r_username)
 
-        print(r_em," ",r_pswd," ",r_username)
-
-
-        if self.check_available_email_login:
-            if validate_email(r_em):
+        if self.check_available_email_login(r_em,r_username):
+            if self.validate_email(r_em):
 
                 connection = pyodbc.connect(connection_string)
                 cursor = connection.cursor()
@@ -78,11 +112,11 @@ class Login(QtWidgets.QMainWindow):
                 connection.close()
 
 
-                QtWidgets.QMessageBox.critical(self, "Success", "Registered successfully")
+                QtWidgets.QMessageBox.information(self, "Success", "Registered successfully")
             else:
                 QtWidgets.QMessageBox.critical(self, "Error", "Please enter a correct Email")
         else:
-             QtWidgets.QMessageBox.critical(self, "Error", "Email/LoginID already exists")
+             QtWidgets.QMessageBox.critical(self, "Error", "Email/Username already exists")
 
         self.REmail.clear()
         self.RPassword.clear()
@@ -93,32 +127,6 @@ class Login(QtWidgets.QMainWindow):
     def closed_clicked(self):
         sys.exit()
 
-
-    def check_emailpass(self,email,password):
-        connection = pyodbc.connect(connection_string)
-        cursor = connection.cursor()
-
-        query = "SELECT username FROM Login_Credentials WHERE email = ? AND password = ?"
-        result = cursor.execute(query, email, password).fetchone()
-
-        connection.close()
-
-        if result:
-            username = result[0]
-            return username
-        else:
-            return None    
-
-    def check_available_email_login(self,email,Login):
-        connection = pyodbc.connect(connection_string)
-        cursor = connection.cursor()
-
-        query = "SELECT username FROM Login_Credentials WHERE email = ? or loginid = ?"
-        result = cursor.execute(query, email, Login)
-
-        connection.close()  # Close the connection explicitly
-    
-        return result is None
 
     def open_player_int(self):
             em = self.Email.text()
