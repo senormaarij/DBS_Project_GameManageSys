@@ -32,7 +32,7 @@ CREATE TABLE Quests (
 );
 
 CREATE TABLE Items (
-    ItemID INT PRIMARY KEY,
+    ItemID INT PRIMARY KEY IDENTITY(1,1),
     ItemName VARCHAR(100),
     Rarity VARCHAR(100),
     Type VARCHAR(100),
@@ -41,7 +41,7 @@ CREATE TABLE Items (
 );
 
 CREATE TABLE Player (
-    Playerid INT PRIMARY KEY,
+    PlayerID INT PRIMARY KEY IDENTITY(1,1),
     Username VARCHAR(100) REFERENCES Login_Credentials(Username),
     ClassID INT REFERENCES Classes(ClassID),
     Health INT,
@@ -52,7 +52,7 @@ CREATE TABLE Player (
 );
 
 CREATE TABLE Inventory (
-    Playerid INT REFERENCES Player(Playerid),
+    Playerid INT REFERENCES Player(PlayerID),
     ItemID INT REFERENCES Items(ItemID),
     PRIMARY KEY (Playerid, ItemID)
 );
@@ -60,7 +60,7 @@ CREATE TABLE Inventory (
 
 CREATE TABLE Trade (
     TradeID int PRIMARY KEY IDENTITY(1,1),
-    BelongsTo int REFERENCES Player(Playerid),
+    BelongsTo int REFERENCES Player(PlayerID),
     ItemToTradeID int REFERENCES Items(ItemID),
     ItemNeedID int REFERENCES Items(ItemID)
 );
@@ -70,4 +70,4 @@ CREATE TABLE Market_Item (
     Gold int
 );
 
-  
+ 

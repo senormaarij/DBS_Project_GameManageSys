@@ -34,29 +34,48 @@ VALUES
     (2, 'Hunt the Dragon', 'Defeat the dragon in the forest', 2, 1);
 
 -- Inserting dummy data into Items
-INSERT INTO Items (ItemID, ItemName, Rarity, Type, LocationID, QuestID)
+INSERT INTO Items (ItemName, Rarity, Type, LocationID, QuestID)
 VALUES 
-    (1, 'Sword', 'Rare', 'Weapon', 1, NULL),
-    (2, 'Potion', 'Common', 'Consumable', 3, NULL),
-    (3, 'Spellbook', 'Epic', 'Artifact', NULL, 2);
+    ('Sword', 'Rare', 'Weapon', 1, NULL),
+    ('Healing Potion', 'Common', 'Consumable', 3, NULL),
+    ('Spellbook', 'Epic', 'Artifact', NULL, 2),
+	('Sword', 'Legendary', 'Weapon', 2, NULL),
+	('Axe', 'Common', 'Weapon', NULL, NULL),
+    ('Bow', 'Rare', 'Weapon', NULL, NULL),
+    ('Leather Armor', 'Common', 'Armour', NULL, NULL),
+    ('Magic Wand', 'Epic', 'Artifact', NULL, 1),
+    ('Potion of Invisibility', 'Legendary', 'Consumable', NULL, NULL),
+    ('Hammer', 'Common', 'Weapon', NULL, NULL);
+
 
 -- Inserting dummy data into Player
-INSERT INTO Player (Playerid, Username, ClassID, Health, Gold, Mana, Level, FactionID)
+INSERT INTO Player (Username, ClassID, Health, Gold, Mana, Level, FactionID)
 VALUES 
-    (1, 'user1', 1, 100, 50, 80, 5, 1),
-    (2, 'user2', 2, 80, 30, 120, 3, 1),
-    (3, 'user3', 3, 120, 70, 60, 7, 1),
-    (4, 'user4', 1, 90, 40, 100, 4, 2),
-    (5, 'user5', 3, 110, 60, 90, 6, 2);
+    ('user1', 1, 100, 50, 80, 5, 1),
+    ('user2', 2, 80, 30, 120, 3, 1),
+    ('user3', 3, 120, 70, 60, 7, 1),
+    ('user4', 1, 90, 40, 100, 4, 2),
+    ('user5', 3, 110, 60, 90, 6, 2);
 
 -- Inserting dummy data into Inventory
 INSERT INTO Inventory (Playerid, ItemID)
 VALUES 
     (1, 1),
     (1, 2),
-    (2, 3),
-    (3, 1),
+    (1, 3),
+    (1, 4),
+	(2, 2),
+    (2, 4),
+    (2, 5),
+	(3, 1),
+    (3, 3),
+    (3, 5),
+	(4, 1),
     (4, 2),
+    (4, 3),
+    (4, 4),
+    (4, 5),
+	(5, 1),
     (5, 3);
 
 INSERT INTO Trade (BelongsTo, ItemToTradeID, ItemNeedID)
@@ -69,4 +88,17 @@ INSERT INTO Market_Item (ItemID, Gold)
 VALUES 
     (1, 50),   
     (2, 20),   
-    (3, 80);   
+    (3, 80);  
+
+select * from Login_Credentials
+select * from Classes 
+select * from Faction
+select * from Inventory 
+select * from Items 
+select * from Locations 
+select * from Market_Item 
+select * from Player 
+select * from Quests
+select * from Trade
+	
+
