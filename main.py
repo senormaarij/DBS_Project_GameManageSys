@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidge
 import sys
 import pyodbc
 import re
+# from generated_ui import Ui_MainWindow
 
 server = 'DESKTOP-1GNB7TH\SPARTA'
 database = 'GAME_N'  # Name of your Northwind database
@@ -111,10 +112,13 @@ class Inventory(QtWidgets.QMainWindow):
     def __init__(self,Username):
         super(Inventory, self).__init__()
         # Load the .ui file
-        uic.loadUi('Inventory.ui', self)
+        # uic.loadUi('Inventory.ui', self)  
+        from  Inventory_ui import Ui_MainWindow
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
 
 
-
+        
 
         self.inventory_lst = []
 

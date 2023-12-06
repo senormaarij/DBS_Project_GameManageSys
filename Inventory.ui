@@ -559,7 +559,7 @@ color: white;
      <x>0</x>
      <y>0</y>
      <width>781</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuInventory_Display">
@@ -571,14 +571,10 @@ color: white;
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
-<<<<<<< Updated upstream
- <resources/>
-=======
  <resources>
   <include location="Kafkabg.qrc"/>
   <include location="shbg.qrc"/>
   <include location="Bladebg.qrc"/>
  </resources>
->>>>>>> Stashed changes
  <connections/>
 </ui>
