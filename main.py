@@ -4,6 +4,9 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidge
 import sys
 import pyodbc
 import re
+import bladebg
+import Kafkabg
+import shbg
 # from generated_ui import Ui_MainWindow
 
 server = 'DESKTOP-1GNB7TH\SPARTA'
@@ -25,12 +28,10 @@ class Login(QtWidgets.QMainWindow):
     def __init__(self):
         # Call the inherited classes __init__ method
         super(Login, self).__init__()
-
-        
-
         # Load the .ui file
         uic.loadUi('Login.ui', self)
-        
+
+
         # Connect Submit Button to Event Handling Code
         self.setWindowTitle('Login')
         self.login.clicked.connect(self.open_player_int)
@@ -75,8 +76,11 @@ class Login(QtWidgets.QMainWindow):
         query = "SELECT username FROM Login_Credentials WHERE email = ? AND password = ?"
         result = cursor.execute(query, email, password).fetchone()
 
-        connection.close()  # Close the connection explicitly
+        connection.close()
 
+
+
+        
         if result:
             username = result[0]
             # print(login_id)
@@ -112,10 +116,7 @@ class Inventory(QtWidgets.QMainWindow):
     def __init__(self,Username):
         super(Inventory, self).__init__()
         # Load the .ui file
-        # uic.loadUi('Inventory.ui', self)  
-        from  Inventory_ui import Ui_MainWindow
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        uic.loadUi('Inventory.ui', self)  
 
 
         
