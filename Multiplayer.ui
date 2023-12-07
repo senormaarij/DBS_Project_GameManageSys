@@ -53,6 +53,11 @@ background:transparent;
     background-color: rgb(69, 28, 53);
 	color:rgb(255, 255, 255);
 }
+
+QTableWidget::item{
+background-color:rgb(62, 43, 63);
+color:white;
+}
 </string>
      </property>
      <row>
@@ -94,18 +99,18 @@ background:transparent;
     <widget class="QPushButton" name="TradeConfirm">
      <property name="geometry">
       <rect>
-       <x>670</x>
-       <y>210</y>
-       <width>93</width>
-       <height>28</height>
+       <x>510</x>
+       <y>220</y>
+       <width>75</width>
+       <height>23</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">color:white;
-</string>
+      <string notr="true">background-color:rgb(70, 27, 55);
+color: white;</string>
      </property>
      <property name="text">
-      <string>Confirm Trade</string>
+      <string>Confirm</string>
      </property>
     </widget>
    </widget>
@@ -159,6 +164,11 @@ background:transparent;
       <string notr="true">QHeaderView::section {
     background-color: rgb(71, 30, 55);
 	color:rgb(255, 255, 255);
+}
+
+QTableWidget::item{
+
+color:white;
 }
 </string>
      </property>

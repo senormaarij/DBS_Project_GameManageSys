@@ -160,18 +160,12 @@ class Inventory(QtWidgets.QMainWindow):
 
 
         self.Username = Username 
-        self.inventory_lst = []
-
 
         self.selected_row = None
 
-
-
-
-
-        self.load_inventory(Username)
-
-
+        self.load_inventory(self.Username)
+        print(self.Username)
+        self.refresh.clicked.connect(lambda: self.load_inventory(self.Username))
         self.search_button.clicked.connect(self.search)
         self.Multiplay.clicked.connect(self.load_Multiplayer)
         self.inventorytable.cellClicked.connect(self.on_table_cell_clicked)
@@ -179,6 +173,8 @@ class Inventory(QtWidgets.QMainWindow):
        
         
     def load_inventory(self, Username):
+
+        self.inventory_lst = []
        
         self.setWindowTitle('Inventory of '+ Username)
 
@@ -283,9 +279,6 @@ class Inventory(QtWidgets.QMainWindow):
             self.inventorytable.setItem(i, 1, rarity)
             self.inventorytable.setItem(i, 2, item_type)
   
-    def update_inventory():
-        pass
-
     def load_Multiplayer(self):
         self.Multiplayer_win = Multiplayer(self.Username)
         self.Multiplayer_win.show()

@@ -64,12 +64,17 @@ class Ui_MainWindow(object):
 "    background-color: rgb(69, 28, 53);\n"
 "	color:rgb(255, 255, 255);\n"
 "}\n"
+"\n"
+"QTableWidget::item{\n"
+"background-color:rgb(62, 43, 63);\n"
+"color:white;\n"
+"}\n"
 "")
         self.TradeConfirm = QPushButton(self.groupBox)
         self.TradeConfirm.setObjectName(u"TradeConfirm")
-        self.TradeConfirm.setGeometry(QRect(670, 210, 93, 28))
-        self.TradeConfirm.setStyleSheet(u"color:white;\n"
-"")
+        self.TradeConfirm.setGeometry(QRect(510, 220, 75, 23))
+        self.TradeConfirm.setStyleSheet(u"background-color:rgb(70, 27, 55);\n"
+"color: white;")
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(30, 10, 261, 21))
@@ -94,6 +99,11 @@ class Ui_MainWindow(object):
         self.factionTable.setStyleSheet(u"QHeaderView::section {\n"
 "    background-color: rgb(71, 30, 55);\n"
 "	color:rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QTableWidget::item{\n"
+"\n"
+"color:white;\n"
 "}\n"
 "")
         self.groupBox_3 = QGroupBox(self.centralwidget)
@@ -140,7 +150,7 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Want Item", None));
         ___qtablewidgetitem5 = self.tableWidget_2.horizontalHeaderItem(5)
         ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Want Rarity", None));
-        self.TradeConfirm.setText(QCoreApplication.translate("MainWindow", u"Confirm Trade", None))
+        self.TradeConfirm.setText(QCoreApplication.translate("MainWindow", u"Confirm", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Multiplayer", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Faction", None))
         ___qtablewidgetitem6 = self.factionTable.horizontalHeaderItem(0)
