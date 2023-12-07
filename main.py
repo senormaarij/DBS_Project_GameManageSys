@@ -9,7 +9,7 @@ import Kafkabg
 import shbg
 # from generated_ui import Ui_MainWindow
 #DESKTOP-DF4VK8E\DATABASE_WORK
-server = 'DESKTOP-DF4VK8E\DATABASE_WORK'
+server = 'DESKTOP-1GNB7TH\SPARTA'
 database = 'GAME'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
@@ -136,8 +136,18 @@ class Login(QtWidgets.QMainWindow):
                 self.Inventory_win = Inventory(username)
                 self.Inventory_win.show()
                 self.hide()
+                self.Inventory_win.logout.clicked.connect(self.logout)
+
             else:
                 QtWidgets.QMessageBox.critical(self, "Error", "Email/Password might be incorrect")
+    
+    def logout(self):
+        self.Inventory_win.close()
+        self.Email.clear()
+        self.Password.clear()
+        self.show()
+
+    
 
     
 #-------------------------------------------------------------------------------------------- 
@@ -152,7 +162,6 @@ class Inventory(QtWidgets.QMainWindow):
 
         self.inventory_lst = []
 
-        #call login function with a unique playerID
         self.load_inventory(Username)
 
         self.search_button.clicked.connect(self.search)

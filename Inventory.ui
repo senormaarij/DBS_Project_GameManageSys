@@ -572,6 +572,19 @@ background: middle right;
       </property>
      </widget>
     </widget>
+    <widget class="QPushButton" name="logout">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>70</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Logout</string>
+     </property>
+    </widget>
    </widget>
    <zorder>frame_5</zorder>
    <zorder>groupBox_2</zorder>
