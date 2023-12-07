@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>797</width>
-    <height>600</height>
+    <width>776</width>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -243,7 +243,7 @@ background-position: center;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/newPrefix/Blade.webp);
+      <string notr="true">background:transparent;
 background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -265,13 +265,13 @@ color: white;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QHeaderView::section{
-background-color:rgba(116, 116, 116, 255);
+background-color:rgb(33, 33, 58);
 }
 
-background:rgb(136, 136, 136);
-font: 75 10pt &quot;Palatino Linotype&quot;;
-color: black;
-border: 1px solid;
+QTableWidget::item{
+background-color: rgb(53, 32, 62);
+color:white;
+}
 </string>
       </property>
       <row>
@@ -326,7 +326,9 @@ border: 1px solid;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-position:middle right;
+      <string notr="true">background:transparent;
+background-position:middle right;
+
 color:white;</string>
      </property>
      <property name="title">
@@ -340,6 +342,14 @@ color:white;</string>
         <width>93</width>
         <height>28</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 1px solid;
+border-color: white;
+color:white;
+background-color: rgb(63, 16, 37);
+
+</string>
       </property>
       <property name="text">
        <string>List Item</string>
@@ -358,6 +368,7 @@ color:white;</string>
      <property name="styleSheet">
       <string notr="true">background: transparent;
 border: 1px solid;
+border-color:white;
 font: 63 9pt &quot;Bahnschrift SemiBold&quot;;
 color:white;
 </string>
@@ -375,11 +386,11 @@ color:white;
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border: 2px solid;
+       <string notr="true">border: 1px solid;
 border-color: white;
 color:white;
-background: middle right;
-background-color: black;
+background-color: rgb(63, 16, 37);
+
 </string>
       </property>
       <property name="text">
@@ -390,14 +401,15 @@ background-color: black;
     <widget class="QPushButton" name="logout">
      <property name="geometry">
       <rect>
-       <x>590</x>
-       <y>70</y>
-       <width>75</width>
-       <height>23</height>
+       <x>610</x>
+       <y>30</y>
+       <width>91</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border: 2px solid;
+      <string notr="true">background-color:black;
+border: 2px solid;
 color:white;
 </string>
      </property>
@@ -614,6 +626,25 @@ color: white;</string>
       </widget>
      </widget>
     </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>610</x>
+       <y>90</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:black;
+border: 2px solid;
+color:white;
+</string>
+     </property>
+     <property name="text">
+      <string>Refresh</string>
+     </property>
+    </widget>
    </widget>
    <zorder>frame_5</zorder>
    <zorder>label</zorder>
@@ -634,7 +665,7 @@ color: white;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>797</width>
+     <width>776</width>
      <height>26</height>
     </rect>
    </property>
