@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>891</width>
-    <height>514</height>
+    <height>518</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -99,10 +99,10 @@ color:white;
     <widget class="QPushButton" name="TradeConfirm">
      <property name="geometry">
       <rect>
-       <x>500</x>
-       <y>210</y>
-       <width>91</width>
-       <height>31</height>
+       <x>510</x>
+       <y>220</y>
+       <width>75</width>
+       <height>23</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -111,23 +111,6 @@ color: white;</string>
      </property>
      <property name="text">
       <string>Confirm</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="refreshtrades">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>210</y>
-       <width>111</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(70, 27, 55);
-color: white;</string>
-     </property>
-     <property name="text">
-      <string>Refresh Trades</string>
      </property>
     </widget>
    </widget>
@@ -242,7 +225,7 @@ color: white;</string>
      <x>0</x>
      <y>0</y>
      <width>891</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

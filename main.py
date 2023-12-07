@@ -10,7 +10,7 @@ import shbg
 # from generated_ui import Ui_MainWindow
 #DESKTOP-DF4VK8E\DATABASE_WORK
 server = 'DESKTOP-1GNB7TH\SPARTA'
-database = 'GAME'  # Name of your Northwind database
+database = 'GAME_RPG'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
 username = 'sa'  # Specify a username if not using Windows Authentication
 password = 'maarij0314'  # Specify a password if not using Windows Authentication
@@ -90,7 +90,7 @@ class Login(QtWidgets.QMainWindow):
 
         #---default values for new player-----
         def_lvl = 1
-        def_gold = 0 
+        def_gold = 40
         def_mana = 30
         def_health = 100 
 
@@ -315,41 +315,47 @@ class Multiplayer(QtWidgets.QMainWindow):
 
         self.MarketButton.clicked.connect(self.open_market)
 
-        # Trade display.
-        connection = pyodbc.connect(connection_string)
-        cursor = connection.cursor()
+        self.load_data()
 
-        query = "SELECT TradeID, (SELECT Username FROM Player WHERE PlayerID = Trade.BelongsTo) AS BelongsToUsername, (SELECT ItemName FROM Items WHERE ItemID = Trade.ItemToTradeID) AS ItemToTrade, (SELECT Rarity FROM Items WHERE ItemID = Trade.ItemToTradeID) AS TradeItemRarity, (SELECT ItemName FROM Items WHERE ItemID = Trade.ItemNeedID) AS ItemNeeded, (SELECT Rarity FROM Items WHERE ItemID = Trade.ItemNeedID) AS NeededItemRarity FROM Trade"
-
-        cursor.execute(query)
-        rows = cursor.fetchall()
-
-        #Faction display.
-
-        faction_query = "select username from player where playerid in (select playerid from player where factionid in (select factionid from player where username = ?))"
-        cursor.execute(faction_query, self.Username)
-        faction_rows = cursor.fetchall()
-
-        self.tableWidget_2.setRowCount(len(rows))
-        self.tableWidget_2.setColumnCount(6)
-
-        self.factionTable.setRowCount(len(faction_rows))
-        self.factionTable.setColumnCount(1)
-
-        for i, row in enumerate(rows):
-            for j, value in enumerate(row):
-                item = QtWidgets.QTableWidgetItem(str(value))
-                self.tableWidget_2.setItem(i, j, item)
-
-        for i, row in enumerate(faction_rows):
-            for j, value in enumerate(row):
-                item = QtWidgets.QTableWidgetItem(str(value))
-                self.factionTable.setItem(i, j, item)
-        
+        self.refreshtrades.clicked.connect(self.load_data)
 
         self.tableWidget_2.cellClicked.connect(self.on_table_cell_clicked)
         self.TradeConfirm.clicked.connect(self.confirm_trade)
         self.selected_row = None
+        # Trade display.
+    def load_data(self):
+        # Clear existing data
+        self.tableWidget_2.setRowCount(0)
+        self.factionTable.setRowCount(0)
+
+        # Load Trade data
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        trade_query = "SELECT TradeID, (SELECT Username FROM Player WHERE PlayerID = Trade.BelongsTo) AS BelongsToUsername, (SELECT ItemName FROM Items WHERE ItemID = Trade.ItemToTradeID) AS ItemToTrade, (SELECT Rarity FROM Items WHERE ItemID = Trade.ItemToTradeID) AS TradeItemRarity, (SELECT ItemName FROM Items WHERE ItemID = Trade.ItemNeedID) AS ItemNeeded, (SELECT Rarity FROM Items WHERE ItemID = Trade.ItemNeedID) AS NeededItemRarity FROM Trade"
+
+        cursor.execute(trade_query)
+        trade_rows = cursor.fetchall()
+
+        for i, row in enumerate(trade_rows):
+            self.tableWidget_2.insertRow(i)
+            for j, value in enumerate(row):
+                item = QtWidgets.QTableWidgetItem(str(value))
+                self.tableWidget_2.setItem(i, j, item)
+
+        # Load Faction data
+        faction_query = "SELECT username FROM player WHERE playerid IN (SELECT playerid FROM player WHERE factionid IN (SELECT factionid FROM player WHERE username = ?))"
+        cursor.execute(faction_query, self.Username)
+        faction_rows = cursor.fetchall()
+
+        for i, row in enumerate(faction_rows):
+            self.factionTable.insertRow(i)
+            for j, value in enumerate(row):
+                item = QtWidgets.QTableWidgetItem(str(value))
+                self.factionTable.setItem(i, j, item)
+
+        cursor.close()
+        connection.close()
 
     def on_table_cell_clicked(self, row, col):
         self.selected_row = row
@@ -361,45 +367,61 @@ class Multiplayer(QtWidgets.QMainWindow):
             for i in range(6):
                 self.select_lst.append(self.tableWidget_2.item(self.selected_row, i).text())
 
+
+            connection = pyodbc.connect(connection_string)
+            cursor = connection.cursor()
+            query = "select itemId from items where itemname = ? and rarity = ?"
+            result = cursor.execute(query, self.select_lst[2], self.select_lst[3]).fetchone()
+            item = result[0]
+            check_q = "Select itemid from inventory where Playerid in (select playerid from player where username = ?)"
+            cursor.execute(check_q, self.Username)
+            check = cursor.fetchall()
+            final = [item[0] for item in check]
+            connection.close()
             # Check if the user has the item needed for the trade
             if self.check_inventory_for_trade(self.Username, self.select_lst[4]):
                 if self.Username == self.select_lst[1]:
                     QtWidgets.QMessageBox.critical(self, "Error!" ,"Why brother Why!")
                 else:
-                    connection = pyodbc.connect(connection_string)
-                    cursor = connection.cursor()
+                    if item not in final:
+                        connection = pyodbc.connect(connection_string)
+                        cursor = connection.cursor()
 
-                    # ned to update item into the user's inventory.
-                    insert_query = "INSERT INTO Inventory (Playerid, ItemID) VALUES ((SELECT Top 1 PlayerID FROM Player WHERE Username = ?), (SELECT ItemID FROM Items WHERE ItemName = ? and Rarity = ?))"
-                    cursor.execute(insert_query, (self.Username, self.select_lst[2], self.select_lst[3]))
+                        # ned to update item into the user's inventory.
+                        insert_query = "INSERT INTO Inventory (Playerid, ItemID) VALUES ((SELECT Top 1 PlayerID FROM Player WHERE Username = ?), (SELECT ItemID FROM Items WHERE ItemName = ? and Rarity = ?))"
+                        cursor.execute(insert_query, (self.Username, self.select_lst[2], self.select_lst[3]))
 
-                    #need to update item into the Traders inventory.
-                    insert_query = "INSERT INTO Inventory (Playerid, ItemID) VALUES ((SELECT Top 1 PlayerID FROM Player WHERE Username = ?), (SELECT ItemID FROM Items WHERE ItemName = ? and Rarity = ?))"
-                    cursor.execute(insert_query, (self.select_lst[1], self.select_lst[4], self.select_lst[5]))
+                        #need to update item into the Traders inventory.
+                        insert_query = "INSERT INTO Inventory (Playerid, ItemID) VALUES ((SELECT Top 1 PlayerID FROM Player WHERE Username = ?), (SELECT ItemID FROM Items WHERE ItemName = ? and Rarity = ?))"
+                        cursor.execute(insert_query, (self.select_lst[1], self.select_lst[4], self.select_lst[5]))
 
-                    # now I need to delete the item needed from user's inventory.
-                    delete_query = " DELETE FROM Inventory  WHERE Playerid = (SELECT PlayerID FROM Player WHERE Username = ?) AND ItemID = (SELECT ItemID FROM Items WHERE ItemName = ? and Rarity = ?)"
-                    cursor.execute(delete_query, (self.Username, self.select_lst[4], self.select_lst[5]))
+                        # now I need to delete the item needed from user's inventory.
+                        delete_query = " DELETE FROM Inventory  WHERE Playerid = (SELECT PlayerID FROM Player WHERE Username = ?) AND ItemID = (SELECT ItemID FROM Items WHERE ItemName = ? and Rarity = ?)"
+                        cursor.execute(delete_query, (self.Username, self.select_lst[4], self.select_lst[5]))
 
-                    #now I need to delete from Trades inventory.
-                    delete_query = " DELETE FROM Inventory  WHERE Playerid = (SELECT PlayerID FROM Player WHERE Username = ?) AND ItemID = (SELECT ItemID FROM Items WHERE ItemName = ? and Rarity = ?)"
-                    cursor.execute(delete_query, (self.select_lst[1], self.select_lst[2], self.select_lst[3]))
+                        #now I need to delete from Trades inventory.
+                        delete_query = " DELETE FROM Inventory  WHERE Playerid = (SELECT PlayerID FROM Player WHERE Username = ?) AND ItemID = (SELECT ItemID FROM Items WHERE ItemName = ? and Rarity = ?)"
+                        cursor.execute(delete_query, (self.select_lst[1], self.select_lst[2], self.select_lst[3]))
 
-                    # Commit the transaction
-                    connection.commit()
-                    QtWidgets.QMessageBox.information(self, "Success" ,"Trade was successful!")
+                        delete_query = "DELETE FROM Trade where tradeid = ?"
+                        cursor.execute(delete_query, self.select_lst[0])
+                        # Commit the transaction
+                        connection.commit()
+                        QtWidgets.QMessageBox.information(self, "Success" ,"Trade was successful!")
+                    else:
+                        QtWidgets.QMessageBox.critical(self, "Error!" ,"You already own this item!")
             else:
                 QtWidgets.QMessageBox.critical(self, "Error!" ,"You don't have the item in your inventory!")
         else:
             QtWidgets.QMessageBox.critical(self, "Error!" ,"No row selected. Please click on a row in the table before confirming the trade!")
 
-    def check_inventory_for_trade(self, username, item_needed):
+    def check_inventory_for_trade(self, username, itemid,):
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
         inventory_query = "SELECT COUNT(*) FROM Inventory WHERE Playerid = (SELECT PlayerID FROM Player WHERE Username = ?) AND ItemID IN (SELECT ItemID FROM Items WHERE ItemName = ?)"
 
-        cursor.execute(inventory_query, (username, item_needed))
+        cursor.execute(inventory_query, (username, itemid))
         count = cursor.fetchone()[0]
 
         cursor.close()
@@ -568,28 +590,6 @@ class Market(QtWidgets.QMainWindow):
                 QtWidgets.QMessageBox.critical(self, "Error!" ,"You already own this item")
         else:
              QtWidgets.QMessageBox.critical(self, "Error!" ,"No row selected. Please click on a item to purchase")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-    
-
-
 
         
 
