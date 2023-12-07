@@ -32,7 +32,7 @@ class Login(QtWidgets.QMainWindow):
         uic.loadUi('Login.ui', self)
 
 
-        # Connect Submit Button to Event Handling Code
+        #Buttons to Event Handling Code
         self.setWindowTitle('Login')
         self.login.clicked.connect(self.open_player_int)
         self.Register.clicked.connect(self.register_player)
@@ -56,12 +56,14 @@ class Login(QtWidgets.QMainWindow):
         else:
             return False
 
+    #-----------------------------------------------------------------
 
     def validate_email(self,email):
         if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
             return True
         return False
 
+    #-----------------------------------------------------------------
     
     def check_emailpass(self,email,password):
         connection = pyodbc.connect(connection_string)
@@ -92,8 +94,6 @@ class Login(QtWidgets.QMainWindow):
         def_mana = 30
         def_health = 100 
 
-        #print(r_em," ",r_pswd," ",r_username)
-
         if self.check_available_email_login(r_em,r_username):
             if self.validate_email(r_em):
 
@@ -123,11 +123,11 @@ class Login(QtWidgets.QMainWindow):
         self.RUsername.clear()
         
 
-    
+    #---------------------------------------------------------------
     def closed_clicked(self):
         sys.exit()
 
-
+    #---------------------------------------------------------------
     def open_player_int(self):
             em = self.Email.text()
             pswd = self.Password.text()
@@ -141,6 +141,7 @@ class Login(QtWidgets.QMainWindow):
             else:
                 QtWidgets.QMessageBox.critical(self, "Error", "Email/Password might be incorrect")
     
+    #--------------------------------------------------------------
     def logout(self):
         self.Inventory_win.close()
         self.Email.clear()
@@ -159,17 +160,23 @@ class Inventory(QtWidgets.QMainWindow):
 
 
         self.Username = Username 
-
         self.inventory_lst = []
+
+
+        self.selected_row = None
+
+
+
+
 
         self.load_inventory(Username)
 
-        self.search_button.clicked.connect(self.search)
 
+        self.search_button.clicked.connect(self.search)
         self.Multiplay.clicked.connect(self.load_Multiplayer)
         self.inventorytable.cellClicked.connect(self.on_table_cell_clicked)
         self.pushButton.clicked.connect(self.load_AddTrade)
-        self.selected_row = None
+       
         
     def load_inventory(self, Username):
        
