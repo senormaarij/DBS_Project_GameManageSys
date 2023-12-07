@@ -14,8 +14,13 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">
-background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909, stop:0 rgba(29, 22, 30, 255), stop:1 rgba(255, 255, 255, 255));</string>
+   <string notr="true">background-image: url(:/newPrefix/Blade.webp);
+background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-origin: content;
+
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
@@ -26,6 +31,10 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
       <width>441</width>
       <height>541</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+color:white;</string>
     </property>
     <property name="title">
      <string>Market Listing</string>
@@ -41,7 +50,7 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
      </property>
      <property name="styleSheet">
       <string notr="true">QHeaderView::section {
-    background-color: rgb(112, 112, 112);
+    background-color:rgb(112, 58, 53);
 }
 </string>
      </property>
@@ -77,8 +86,9 @@ background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0.002, y2:0.965909,
      </property>
      <property name="styleSheet">
       <string notr="true">font: 63 9pt &quot;Bahnschrift SemiBold&quot;;
-border: 2px solid;
-color: white;</string>
+
+color: white;
+background-color:rgb(112, 58, 53);</string>
      </property>
      <property name="text">
       <string>Buy</string>
@@ -98,6 +108,8 @@ color: white;</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Bladebg.qrc"/>
+ </resources>
  <connections/>
 </ui>
