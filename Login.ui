@@ -13,6 +13,14 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/newPrefix/Blade.webp);
+
+background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-origin: content;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
@@ -22,6 +30,11 @@
       <width>371</width>
       <height>161</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background:transparent;
+color:white;
+font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
     </property>
     <property name="title">
      <string>Login</string>
@@ -44,7 +57,7 @@
       <rect>
        <x>10</x>
        <y>60</y>
-       <width>47</width>
+       <width>61</width>
        <height>21</height>
       </rect>
      </property>
@@ -61,6 +74,9 @@
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="Password">
      <property name="geometry">
@@ -73,9 +89,15 @@
      </property>
      <property name="font">
       <font>
-       <weight>50</weight>
+       <family>Bahnschrift SemiBold</family>
+       <pointsize>9</pointsize>
+       <weight>7</weight>
+       <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
@@ -90,6 +112,11 @@
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(156, 61, 54);
+color:white;
+font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
+     </property>
      <property name="text">
       <string>Login</string>
      </property>
@@ -99,10 +126,15 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>210</y>
+      <y>190</y>
       <width>371</width>
       <height>211</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+color:white;
+font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
     </property>
     <property name="title">
      <string>Register</string>
@@ -123,11 +155,14 @@
     <widget class="QLineEdit" name="REmail">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>70</x>
        <y>30</y>
        <width>291</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
      </property>
     </widget>
     <widget class="QPushButton" name="Register">
@@ -139,6 +174,11 @@
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(156, 61, 54);
+color:white;
+font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
+     </property>
      <property name="text">
       <string>Register</string>
      </property>
@@ -146,21 +186,27 @@
     <widget class="QLineEdit" name="RUsername">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>70</x>
        <y>70</y>
        <width>291</width>
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="RPassword">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>70</x>
        <y>110</y>
        <width>291</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;</string>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
@@ -184,7 +230,7 @@
       <rect>
        <x>10</x>
        <y>110</y>
-       <width>47</width>
+       <width>71</width>
        <height>21</height>
       </rect>
      </property>
@@ -196,11 +242,17 @@
    <widget class="QPushButton" name="close">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>420</y>
+      <x>290</x>
+      <y>410</y>
       <width>81</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background:transparent;
+background-color: rgb(156, 61, 54);
+color:white;
+font: 63 9pt &quot;Bahnschrift SemiBold&quot;;</string>
     </property>
     <property name="text">
      <string>Close</string>
@@ -219,6 +271,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Bladebg.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -35,25 +35,25 @@ class Ui_MainWindow(object):
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(40, 20, 71, 16))
-        self.label.setStyleSheet(u"color:white;\n"
+        self.label.setStyleSheet(u"color:black;\n"
 "\n"
 "")
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(250, 20, 51, 21))
-        self.label_2.setStyleSheet(u"color:white;")
+        self.label_2.setStyleSheet(u"color:black;")
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(40, 50, 47, 13))
-        self.label_3.setStyleSheet(u"color:white;")
+        self.label_3.setStyleSheet(u"color:black;")
         self.label_4 = QLabel(self.centralwidget)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setGeometry(QRect(40, 80, 47, 13))
-        self.label_4.setStyleSheet(u"color: white;")
+        self.label_4.setStyleSheet(u"color: black;")
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(40, 110, 47, 13))
-        self.label_5.setStyleSheet(u"color: white;")
+        self.label_5.setStyleSheet(u"color: black;")
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.groupBox_2.setGeometry(QRect(20, 140, 631, 131))
@@ -63,10 +63,9 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
         self.groupBox_2.setSizePolicy(sizePolicy)
         self.groupBox_2.setAutoFillBackground(False)
-        self.groupBox_2.setStyleSheet(u"background-image: url(:/newPrefix/Kafka.webp);\n"
-"background-position: top center;\n"
+        self.groupBox_2.setStyleSheet(u"background:transparent;\n"
 "\n"
-"color: white;")
+"color:black;")
         self.groupBox_2.setFlat(False)
         self.searchbar = QLineEdit(self.groupBox_2)
         self.searchbar.setObjectName(u"searchbar")
@@ -75,18 +74,13 @@ class Ui_MainWindow(object):
         self.search_button = QPushButton(self.groupBox_2)
         self.search_button.setObjectName(u"search_button")
         self.search_button.setGeometry(QRect(20, 80, 81, 23))
-        self.search_button.setStyleSheet(u"background-color: #e0e0e0;\n"
+        self.search_button.setStyleSheet(u"background-color: rgb(30, 19, 27);\n"
 "color: white;\n"
-"")
-        self.pushButton_2 = QPushButton(self.groupBox_2)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(140, 80, 91, 23))
-        self.pushButton_2.setStyleSheet(u"color: white;\n"
 "")
         self.groupBox_3 = QGroupBox(self.groupBox_2)
         self.groupBox_3.setObjectName(u"groupBox_3")
         self.groupBox_3.setGeometry(QRect(250, 10, 241, 111))
-        self.groupBox_3.setStyleSheet(u"color: white;")
+        self.groupBox_3.setStyleSheet(u"color: black;")
         self.Leg = QCheckBox(self.groupBox_3)
         self.Leg.setObjectName(u"Leg")
         self.Leg.setGeometry(QRect(10, 80, 91, 17))
@@ -134,7 +128,7 @@ class Ui_MainWindow(object):
         self.label_8 = QLabel(self.centralwidget)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setGeometry(QRect(250, 50, 47, 21))
-        self.label_8.setStyleSheet(u"color: white;")
+        self.label_8.setStyleSheet(u"color:black;")
         self.Level = QLineEdit(self.centralwidget)
         self.Level.setObjectName(u"Level")
         self.Level.setEnabled(False)
@@ -180,7 +174,11 @@ class Ui_MainWindow(object):
         self.inventorytable.setVerticalHeaderItem(4, __qtablewidgetitem7)
         self.inventorytable.setObjectName(u"inventorytable")
         self.inventorytable.setGeometry(QRect(40, 30, 391, 171))
-        self.inventorytable.setStyleSheet(u"background: rgb(70, 77, 117);\n"
+        self.inventorytable.setStyleSheet(u"QHeaderView::section{\n"
+"background-color:rgba(116, 116, 116, 255);\n"
+"}\n"
+"\n"
+"background:rgb(136, 136, 136);\n"
 "font: 75 10pt \"Palatino Linotype\";\n"
 "color: black;\n"
 "border: 1px solid;\n"
@@ -203,8 +201,15 @@ class Ui_MainWindow(object):
         self.Multiplay = QPushButton(self.groupBox_4)
         self.Multiplay.setObjectName(u"Multiplay")
         self.Multiplay.setGeometry(QRect(70, 30, 75, 23))
-        self.Multiplay.setStyleSheet(u"color:white;\n"
+        self.Multiplay.setStyleSheet(u"border: 2px solid;\n"
+"color:white;\n"
 "background: middle right;\n"
+"")
+        self.logout = QPushButton(self.frame_5)
+        self.logout.setObjectName(u"logout")
+        self.logout.setGeometry(QRect(590, 70, 75, 23))
+        self.logout.setStyleSheet(u"border: 2px solid;\n"
+"color:white;\n"
 "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.frame_5.raise_()
@@ -247,7 +252,6 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Class", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Item Search", None))
         self.search_button.setText(QCoreApplication.translate("MainWindow", u"Search", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Drop Item ", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Filter", None))
         self.Leg.setText(QCoreApplication.translate("MainWindow", u"Legendary", None))
         self.Com.setText(QCoreApplication.translate("MainWindow", u"Common", None))
@@ -275,6 +279,7 @@ class Ui_MainWindow(object):
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"List Item", None))
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"Multiplayer", None))
         self.Multiplay.setText(QCoreApplication.translate("MainWindow", u"Connect", None))
+        self.logout.setText(QCoreApplication.translate("MainWindow", u"Logout", None))
         self.menuInventory_Display.setTitle(QCoreApplication.translate("MainWindow", u"Inventory Display", None))
     # retranslateUi
 

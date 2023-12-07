@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color:white;
+     <string notr="true">color:black;
 
 </string>
     </property>
@@ -45,7 +45,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color:white;</string>
+     <string notr="true">color:black;</string>
     </property>
     <property name="text">
      <string>Gold</string>
@@ -61,7 +61,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color:white;</string>
+     <string notr="true">color:black;</string>
     </property>
     <property name="text">
      <string>HP</string>
@@ -77,7 +77,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: white;</string>
+     <string notr="true">color: black;</string>
     </property>
     <property name="text">
      <string>Mana</string>
@@ -93,7 +93,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: white;</string>
+     <string notr="true">color: black;</string>
     </property>
     <property name="text">
      <string>Class</string>
@@ -118,10 +118,9 @@
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/newPrefix/Kafka.webp);
-background-position: top center;
+     <string notr="true">background:transparent;
 
-color: white;</string>
+color:black;</string>
     </property>
     <property name="title">
      <string>Item Search</string>
@@ -152,29 +151,12 @@ color: white;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: #e0e0e0;
+      <string notr="true">background-color: rgb(30, 19, 27);
 color: white;
 </string>
      </property>
      <property name="text">
       <string>Search</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>80</y>
-       <width>91</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: white;
-</string>
-     </property>
-     <property name="text">
-      <string>Drop Item </string>
      </property>
     </widget>
     <widget class="QGroupBox" name="groupBox_3">
@@ -187,7 +169,7 @@ color: white;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: white;</string>
+      <string notr="true">color: black;</string>
      </property>
      <property name="title">
       <string>Filter</string>
@@ -388,7 +370,7 @@ color: white;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: white;</string>
+     <string notr="true">color:black;</string>
     </property>
     <property name="text">
      <string>Level</string>
@@ -457,7 +439,11 @@ color: white;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: rgb(70, 77, 117);
+       <string notr="true">QHeaderView::section{
+background-color:rgba(116, 116, 116, 255);
+}
+
+background:rgb(136, 136, 136);
 font: 75 10pt &quot;Palatino Linotype&quot;;
 color: black;
 border: 1px solid;
@@ -563,7 +549,8 @@ color:white;
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color:white;
+       <string notr="true">border: 2px solid;
+color:white;
 background: middle right;
 </string>
       </property>
@@ -580,6 +567,11 @@ background: middle right;
        <width>75</width>
        <height>23</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 2px solid;
+color:white;
+</string>
      </property>
      <property name="text">
       <string>Logout</string>
