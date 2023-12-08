@@ -8,7 +8,6 @@ import bladebg
 import Kafkabg
 import shbg
 # from generated_ui import Ui_MainWindow
-#DESKTOP-DF4VK8E\DATABASE_WORK
 server = 'DESKTOP-1GNB7TH\SPARTA'
 database = 'GAME_RPG'  # Name of your Northwind database
 use_windows_authentication = True  # Set to True to use Windows Authentication
@@ -228,8 +227,6 @@ class Inventory(QtWidgets.QMainWindow):
         
         # print(self.inventory_lst)
 
-        
-        
         
     
     def search(self):
