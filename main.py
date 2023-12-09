@@ -8,11 +8,11 @@ import bladebg
 import Kafkabg
 import shbg
 # from generated_ui import Ui_MainWindow
-server = 'DESKTOP-1GNB7TH\SPARTA'
-database = 'GAME_RPG'  # Name of your Northwind database
+server = ''    # Name of your server
+database = ''  # Name of your database
 use_windows_authentication = True  # Set to True to use Windows Authentication
-username = 'sa'  # Specify a username if not using Windows Authentication
-password = 'maarij0314'  # Specify a password if not using Windows Authentication
+username = ''  # Specify a username if not using Windows Authentication
+password = ''  # Specify a password if not using Windows Authentication
 
 
 # Create the connection string based on the authentication method chosen
