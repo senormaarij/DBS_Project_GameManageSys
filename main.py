@@ -413,6 +413,7 @@ class Multiplayer(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(self, "Error!" ,"No row selected. Please click on a row in the table before confirming the trade!")
 
     def check_inventory_for_trade(self, username, itemid,):
+        #checking if the trade is possible here
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
@@ -428,6 +429,7 @@ class Multiplayer(QtWidgets.QMainWindow):
 
 
     def open_market(self):
+        #opening market once the go to market button is clicked
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
@@ -510,11 +512,12 @@ class Market(QtWidgets.QMainWindow):
 
         self.buy.clicked.connect(self.purchase)
 
-    def load_Market(self):
+    def load_Market(self): #loads market ui and fills the table.
         connection = pyodbc.connect(connection_string)
         cursor = connection.cursor()
 
-        mark_query = "SELECT Items.ItemName, Items.Rarity, Items.Type, Market_Item.Gold FROM Items JOIN Market_Item ON Items.ItemID = Market_Item.ItemID"
+        #query for loading market table.
+        mark_query = "SELECT Items.ItemName, Items.Rarity, Items.Type, Market_Item.Gold FROM Items JOIN Market_Item ON Items.ItemID = Market_Item.ItemID" 
 
         market = cursor.execute(mark_query).fetchall()
         
@@ -522,7 +525,7 @@ class Market(QtWidgets.QMainWindow):
 
         self.M_table.setRowCount(len(market))
         self.M_table.setColumnCount(4)
-
+         #loads market for us now from the things in the query 
         for i, row in enumerate(market):
             for j, col in enumerate(row):
                 item = QTableWidgetItem(str(col))
@@ -530,7 +533,7 @@ class Market(QtWidgets.QMainWindow):
 
 
 
-    def purchase(self):
+    def purchase(self):#purchasing from the market
         selected_row = self.M_table.currentRow()
 
         if selected_row is not None:
@@ -557,6 +560,7 @@ class Market(QtWidgets.QMainWindow):
             gold = cursor.execute(gold_query,self.mark_playerID).fetchone()
 
             check_q = "Select itemid from inventory where Playerid = ?"
+            #all things above basically make it so we can check how much gold player has and what not
             cursor.execute(check_q, self.mark_playerID)
             check = cursor.fetchall()
             final = [item[0] for item in check]
